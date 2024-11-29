@@ -1,6 +1,6 @@
-// src/pages/Companies.js
+
 import React from 'react';
-import Card from '../components/Card'; // Import the Card component
+import Card from '../components/Card'; 
 
 const Companies = ({ isDarkMode }) => {
     const companies = [
@@ -31,7 +31,7 @@ const Companies = ({ isDarkMode }) => {
             title={company.title}
             description={company.description}
             link={company.link}
-            isDarkMode={isDarkMode} // Pass isDarkMode to Card
+            isDarkMode={isDarkMode} 
           />
         ))}
       </div>

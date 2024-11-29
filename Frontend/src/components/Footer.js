@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Linkedin, Twitter, Instagram } from 'lucide-react'; // Importing icons from Lucide
 
 const Footer = ({ isDarkMode }) => {
   return (
@@ -61,7 +62,7 @@ const Footer = ({ isDarkMode }) => {
         {/* Connect With Us Section */}
         <div>
           <h4 className="font-semibold mb-2">Connect With Us</h4>
-          <div className="flex space-x-3">
+          <div className="flex space-x-6">
             <a
               href="https://www.linkedin.com/in/subhradeep-basu-786aab209?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3BkLdho5srQLWnqZCin%2F9jpw%3D%3D"
               target="_blank"
@@ -72,7 +73,7 @@ const Footer = ({ isDarkMode }) => {
                   : 'text-gray-600 hover:text-blue-600'
               }`}
             >
-              LinkedIn
+              <Linkedin size={24} />
             </a>
             <a
               href="https://x.com/SubhradeepBasu5"
@@ -84,7 +85,7 @@ const Footer = ({ isDarkMode }) => {
                   : 'text-gray-600 hover:text-blue-600'
               }`}
             >
-              Twitter
+              <Twitter size={24} />
             </a>
             <a
               href="https://www.instagram.com/subhradeepbasu12/"
@@ -96,7 +97,7 @@ const Footer = ({ isDarkMode }) => {
                   : 'text-gray-600 hover:text-blue-600'
               }`}
             >
-              Instagram
+              <Instagram size={24} />
             </a>
           </div>
         </div>

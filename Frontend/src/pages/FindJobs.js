@@ -42,8 +42,6 @@ const FindJobs = ({ isDarkMode }) => {
           Discover exciting job opportunities across various industries and locations.
         </p>
       </div>
-
-
       {/* Search Form */}
       <form
         onSubmit={handleSearch}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Linkedin, Twitter, Instagram } from 'lucide-react'; // Importing icons from Lucide
+import { Linkedin, Twitter, Instagram } from 'lucide-react'; 
 
 const Footer = ({ isDarkMode }) => {
   return (

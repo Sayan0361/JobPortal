@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AOS from 'aos';  // Import AOS
-import 'aos/dist/aos.css';  // Import AOS styles
+import AOS from 'aos';  
+import 'aos/dist/aos.css'; 
 
 const Card = ({ title, description, link, isDarkMode }) => {
   useEffect(() => {
-    AOS.init({ duration: 1000, once: true }); // Initialize AOS
+    AOS.init({ duration: 1000, once: true }); 
   }, []);
 
   return (
@@ -13,7 +13,7 @@ const Card = ({ title, description, link, isDarkMode }) => {
       className={`border rounded-md shadow-md p-4 
         ${isDarkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-900'} 
         transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl`}
-      data-aos="fade-up"  // Add AOS animation to each card
+      data-aos="fade-up" 
     >
       <h2 className="text-xl font-semibold text-blue-600">{title}</h2>
       <p className="text-gray-700 dark:text-gray-300 mt-2">{description}</p>

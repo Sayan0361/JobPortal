@@ -7,15 +7,16 @@ import Companies from './pages/Companies';
 import AllJobs from './pages/AllJobs';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
+import JobPostingPage from './pages/JobPostingPage';
 import Loading from './components/Loading';
 
 function App() {
-  // Get the theme from localStorage
+  
   const storedTheme = localStorage.getItem('isDarkMode');
   const initialTheme = storedTheme ? JSON.parse(storedTheme) : false;
   const [isDarkMode, setIsDarkMode] = useState(initialTheme);
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null); // Store the logged-in user
+  const [user, setUser] = useState(null); 
 
   const toggleTheme = () => {
     const newTheme = !isDarkMode;
@@ -25,18 +26,18 @@ function App() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(false); // Stop loading after 3 seconds
+      setLoading(false); 
     }, 3000);
     return () => clearTimeout(timer);
   }, []);
 
-  // Handle user login (this should be triggered after successful login)
+  
   const handleLogin = (userData) => {
-    setUser(userData); // Set the logged-in user
+    setUser(userData); 
   };
 
   const handleLogout = () => {
-    setUser(null); // Clear user data on logout
+    setUser(null); 
   };
 
   return (
@@ -46,12 +47,13 @@ function App() {
         <Navbar
           isDarkMode={isDarkMode}
           toggleTheme={toggleTheme}
-          user={user} // Pass user data to Navbar
-          logout={handleLogout} // Pass logout function to Navbar
+          user={user} 
+          logout={handleLogout} 
         />
         <Routes>
           <Route path="/" element={<FindJobs isDarkMode={isDarkMode} user={user} />} />
           <Route path="/companies" element={<Companies isDarkMode={isDarkMode} />} />
+          <Route path="/job-posting-page" element={<JobPostingPage isDarkMode={isDarkMode} />} />
           <Route path="/all-jobs" element={<AllJobs isDarkMode={isDarkMode} />} />
           <Route path="/signin" element={<SignIn isDarkMode={isDarkMode} onLogin={handleLogin} />} />
           <Route path="/signup" element={<SignUp isDarkMode={isDarkMode} />} />

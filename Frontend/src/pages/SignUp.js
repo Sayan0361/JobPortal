@@ -88,8 +88,13 @@ const SignUp = ({ isDarkMode }) => {
 
   const handleSuccessDialogClose = () => {
     setShowSuccessDialog(false);
-    navigate("/"); 
+    if (userType === "employer") {
+      navigate("/job-posting-page"); // Redirect to the Job Posting page for Employers
+    } else {
+      navigate("/"); // Redirect to the homepage for Jobseekers
+    }
   };
+  
 
   return (
     <div

@@ -1,34 +1,47 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:3000/api";
+const API_BASE_URL = "http://localhost:3001/api";
 
-const signup = async (formData) => {
+const signup = async (formData, userType) => {
     try {
-        const endpoint =
-            formData.role === "user"
-                ? `${API_BASE_URL}/users/register`
-                : formData.role === "employers"
-                    ? `${API_BASE_URL}/employers/register`
-                    : null;
+        let form = new FormData();  
+        let endpoint = "";
 
-        if (!endpoint) {
-            console.error("Invalid role provided");
-            return;
+        if (userType === "employer") {
+            endpoint = `${API_BASE_URL}/employers/register`;
+
+            form.append("name", formData.fullName);
+            form.append("email", formData.email);
+            form.append("password", formData.password);
+            form.append("company", formData.company);
+
+            console.log("Employer FormData", form);            
+        } else if (userType === "jobseeker") {
+            endpoint = `${API_BASE_URL}/users/register`;
+
+            form.append("name", formData.fullName);
+            form.append("email", formData.email);
+            form.append("password", formData.password);
+
+            if (formData.profilePic) {
+                form.append("profileImage", formData.profilePic);
+            }
+
+            if (formData.resume) {
+                form.append("resume", formData.resume);  
+            }
+
+            console.log("Resume", formData.resume);            
+            console.log("User FormData", form);
         }
-
-        const response = await axios.post(endpoint, formData, {
+        
+        const response = await axios.post(endpoint, form, {
             headers: {
-                "Content-Type": "multipart/form-data",
+                'Content-Type': 'multipart/form-data', // Need to specify this when sending FormData
             },
         });
-        console.log(response);
+        console.log("Response", response);
         
-
-        if (response.status === 201) {
-            console.log(`${formData.role} signed up successfully`, response.data);
-        } else {
-            console.error("Error in signup", response.data);
-        }
     } catch (error) {
         console.error("Error in signup", error);
     }

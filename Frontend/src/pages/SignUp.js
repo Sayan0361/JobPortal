@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { signup } from "../ConfigAPI";
 
 const SignUp = ({ isDarkMode }) => {
     const [userType, setUserType] = useState("jobseeker");
@@ -89,6 +90,8 @@ const SignUp = ({ isDarkMode }) => {
             })
         );
 
+        signup(formData, userType);
+
         console.log(`${userType} SignUp Data:`, formDataWithoutFiles);
 
         setShowSuccessDialog(true);
@@ -97,9 +100,9 @@ const SignUp = ({ isDarkMode }) => {
     const handleSuccessDialogClose = () => {
         setShowSuccessDialog(false);
         if (userType === "employer") {
-            navigate("/job-posting-page"); // Redirect to the Job Posting page for Employers
+            navigate("/job-posting-page");
         } else {
-            navigate("/"); // Redirect to the homepage for Jobseekers
+            navigate("/");
         }
     };
 

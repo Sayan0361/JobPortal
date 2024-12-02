@@ -19,7 +19,7 @@ const employerSchema = new mongoose.Schema({
     },
     company: {
         type: String,
-        required: true,
+        // required: true,
     },
     // postedJobs: {
     //     type: mongoose.Schema.Types.ObjectId,

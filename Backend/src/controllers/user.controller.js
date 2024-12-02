@@ -37,11 +37,24 @@ const registerUser = asyncHandler(async (req,res,next)=>{
     const profileImgLocalPath = req?.files?.profileImage?.[0].path
     const resumeLocalPath = req?.files?.resume?.[0].path
 
+    if(!resumeLocalPath){
+        return next(new ApiError(400,"Please provide a resume"))
+    }
+
     if(!profileImgLocalPath){
         return next(new ApiError(400,"Please provide a profile image"))
     }
     const profileImgUrl = await uploadOnCloudinary(profileImgLocalPath)
     const resumeUrl = await uploadOnCloudinary(resumeLocalPath)
+
+
+    if (!profileImgUrl || !profileImgUrl.url) {
+        throw new ApiError(400, "Profile image URL is missing");
+    }
+    
+    if (!resumeUrl || !resumeUrl.url) {
+        throw new ApiError(400, "Resume URL is missing");
+    }
 
     const user = await JobSeeker.create({
         name,

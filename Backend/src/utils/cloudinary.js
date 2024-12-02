@@ -1,8 +1,7 @@
 import { configDotenv } from 'dotenv'
-configDotenv()
+configDotenv({path: "../.env"})
 import { v2 as cloudinary } from 'cloudinary'
 import fs from 'fs'
-import exp from 'constants'
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

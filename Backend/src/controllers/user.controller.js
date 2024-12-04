@@ -94,7 +94,8 @@ const loginUser = asyncHandler(async (req,res,next)=> {
 
     const options = {
         httpOnly: true,
-        secure: true
+        // secure: true,
+        sameSite: "lax",
     }
 
     return res
@@ -116,7 +117,7 @@ const loginUser = asyncHandler(async (req,res,next)=> {
 const logoutUser = asyncHandler(async (req,res,next) => {
 
     await JobSeeker.findByIdAndUpdate(
-        req.user._id,
+        req._id,
         {
             $set: {refreshToken: undefined}
         },
@@ -125,7 +126,8 @@ const logoutUser = asyncHandler(async (req,res,next) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        // secure: true,
+        sameSite: "lax",
     }
 
     return res

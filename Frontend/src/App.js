@@ -9,6 +9,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import JobPostingPage from './pages/JobPostingPage';
 import Loading from './components/Loading';
+import { logout } from './ConfigAPI';
 
 function App() {
   
@@ -37,6 +38,7 @@ function App() {
   };
 
   const handleLogout = () => {
+    logout("user");
     setUser(null); 
   };
 

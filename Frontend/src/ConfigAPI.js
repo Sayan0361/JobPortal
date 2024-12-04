@@ -33,6 +33,8 @@ const signup = async (formData, userType) => {
 
             console.log("Resume", formData.resume);            
             console.log("User FormData", form);
+
+            //return response;
         }
         
         const response = await axios.post(endpoint, form, {
@@ -47,4 +49,60 @@ const signup = async (formData, userType) => {
     }
 };
 
-export { signup };
+const login = async (formData, userType) =>{
+    try {
+        let endpoint = "";
+        let form = new FormData();
+
+        console.log("FormData", formData);        
+
+        if(userType === "employer"){
+            endpoint = `${API_BASE_URL}/employers/login`
+            
+            form.append("email", formData.email);
+            form.append("password", formData.password);
+
+            console.log("Employer FormData", form);
+
+        }else if(userType === "user"){
+            endpoint = `${API_BASE_URL}/users/login`
+
+            form.append("email", formData.email);
+            form.append("password", formData.password);
+        }
+
+        const response = await axios.post(endpoint, form,{
+            withCredentials: true,
+        })
+        console.log("Response", response);
+        return response;
+    } catch (error) {
+        console.log("Error in login", error);        
+    }
+}
+
+const logout = async (userType) => {
+    try {
+        if (!userType || (userType !== "employer" && userType !== "user")) {
+            throw new Error("Invalid userType provided");
+        }
+
+        const endpoint =
+            userType === "employer"
+                ? `${API_BASE_URL}/employers/logout`
+                : `${API_BASE_URL}/users/logout`;
+
+        const response = await axios.post(endpoint, {}, { withCredentials: true });
+
+        if (response.status === 200) {
+            console.log("Logged out successfully:", response.data);
+        } else {
+            console.warn("Unexpected response status:", response.status);
+        }
+    } catch (error) {
+        console.error("Error in logout:", error.response?.data || error.message);
+    }
+};
+
+
+export { signup, login, logout};

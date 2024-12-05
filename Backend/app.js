@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import userRouter from './src/routes/user.routes.js';
 import employerRouter from './src/routes/employer.routes.js';
+import jobRouter from './src/routes/job.routes.js';
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -27,6 +28,7 @@ app.use(express.urlencoded({
 
 app.use("/api/users", userRouter);
 app.use("/api/employers", employerRouter);
+app.use("/api/jobs", jobRouter);
 
 app.use(express.static('public'));
 

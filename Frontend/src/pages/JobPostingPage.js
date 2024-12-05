@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { postJob } from "../ConfigAPI.js";
 
 const JobPosting = ({ isDarkMode }) => {
   const [formData, setFormData] = useState({
-    jobTitle: "",
-    companyName: "",
+    title: "",
+    company: "",
     location: "",
-    jobDescription: "",
+    description: "",
     requiredSkills: "",
     salary: "",
     jobType: "full-time",
+    email: "",
   });
   
   const navigate = useNavigate();
@@ -26,6 +28,7 @@ const JobPosting = ({ isDarkMode }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Add job posting logic here (send data to backend, save to localStorage, etc.)
+    postJob(formData);
     console.log("Job Posted:", formData);
     navigate("/all-jobs"); // Redirect after posting
   };
@@ -43,9 +46,9 @@ const JobPosting = ({ isDarkMode }) => {
           {/* Job Title */}
           <input
             type="text"
-            name="jobTitle"
+            name="title"
             placeholder="Job Title"
-            value={formData.jobTitle}
+            value={formData.title}
             onChange={handleChange}
             required
             className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
@@ -54,9 +57,9 @@ const JobPosting = ({ isDarkMode }) => {
           {/* Company Name */}
           <input
             type="text"
-            name="companyName"
+            name="company"
             placeholder="Company Name"
-            value={formData.companyName}
+            value={formData.company}
             onChange={handleChange}
             required
             className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
@@ -75,9 +78,9 @@ const JobPosting = ({ isDarkMode }) => {
 
           {/* Job Description */}
           <textarea
-            name="jobDescription"
+            name="description"
             placeholder="Job Description"
-            value={formData.jobDescription}
+            value={formData.description}
             onChange={handleChange}
             required
             rows="4"

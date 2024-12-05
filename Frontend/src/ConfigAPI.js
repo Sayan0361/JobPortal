@@ -104,5 +104,36 @@ const logout = async (userType) => {
     }
 };
 
+const getJobs = async () => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/jobs/`);
+        console.log("Response", response);
+        return response.data.data;
+    } catch (error) {
+        console.log("Error in getJobs", error);        
+    }
+}
 
-export { signup, login, logout};
+const postJob = async (formData) => {
+    try {
+        let form = new FormData();  
+
+        form.append("title", formData.title);
+        form.append("description", formData.description);
+        form.append("location", formData.location);
+        form.append("company", formData.company);
+        form.append("salary", formData.salary);
+
+        const response = await axios.post(`${API_BASE_URL}/jobs/postJobs`, form, {
+            headers: {
+                'Content-Type': 'multipart/form-data', // Need to specify this when sending FormData
+            },
+        });
+        console.log("Response", response);
+        
+    } catch (error) {
+        console.error("Error in postJob", error);
+    }
+}
+
+export {signup, login, logout, getJobs, postJob};

@@ -22,10 +22,12 @@ const SignIn = ({ isDarkMode, onLogin }) => {
 
         setErrorMessage('');
         try {
-            const response = await login({ email, password }, userType);
+            const response = await login({ email, password},userType);
 
             if (response.status === 200) {
-                const { name, email, userType } = response.data.data.user;
+                const { name, email } = response.data.data.user;
+                const userType = response.data.userType;
+                setUserType(userType);
                 setName(name);
                 onLogin({ name, email, userType }); 
                 setShowSuccessDialog(true);

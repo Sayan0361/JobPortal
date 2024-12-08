@@ -35,6 +35,7 @@ function App() {
 
 
     const handleLogin = (userData) => {
+        console.log("User data: ", userData);        
         setUser(userData);
     };
 
@@ -55,6 +56,7 @@ function App() {
                     isDarkMode={isDarkMode}
                     toggleTheme={toggleTheme}
                     user={user}
+                    //userType={userType}
                     logout={handleLogout}
                 />
                 <Routes>

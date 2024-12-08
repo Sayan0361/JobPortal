@@ -75,6 +75,7 @@ const login = async (formData, userType) =>{
             withCredentials: true,
         })
         console.log("Response", response);
+        response.data.userType = userType;
         return response;
     } catch (error) {
         console.log("Error in login", error);        

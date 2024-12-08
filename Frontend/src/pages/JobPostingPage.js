@@ -9,9 +9,9 @@ const JobPosting = ({ isDarkMode }) => {
     company: "",
     location: "",
     description: "",
-    requiredSkills: "",
+    // requiredSkills: "",
     salary: "",
-    jobType: "full-time",
+    // jobType: "full-time",
     email: "",
   });
   
@@ -65,6 +65,22 @@ const JobPosting = ({ isDarkMode }) => {
             className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
           />
 
+          {/* Email */}
+          <input
+            type="email"
+            name="email"
+            placeholder="Contact Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className={`block w-full px-3 py-2 rounded-md border transition-colors ${
+              isDarkMode
+                ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400"
+                : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+            }`}
+          />
+
+
           {/* Location */}
           <input
             type="text"
@@ -88,7 +104,7 @@ const JobPosting = ({ isDarkMode }) => {
           />
           
           {/* Required Skills */}
-          <input
+          {/* <input
             type="text"
             name="requiredSkills"
             placeholder="Required Skills"
@@ -96,7 +112,7 @@ const JobPosting = ({ isDarkMode }) => {
             onChange={handleChange}
             required
             className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
-          />
+          /> */}
           
           {/* Salary */}
           <input
@@ -110,7 +126,7 @@ const JobPosting = ({ isDarkMode }) => {
           />
           
           {/* Job Type */}
-          <div className="flex justify-between">
+          {/* <div className="flex justify-between">
             <label className="block text-sm font-medium">Job Type</label>
             <select
               name="jobType"
@@ -122,7 +138,7 @@ const JobPosting = ({ isDarkMode }) => {
               <option value="part-time">Part-time</option>
               <option value="remote">Remote</option>
             </select>
-          </div>
+          </div> */}
 
           <div className="flex justify-center">
             <button

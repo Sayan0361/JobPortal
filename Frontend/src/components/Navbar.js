@@ -29,6 +29,10 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
         const nameParts = name.split(" ");
         const initials =
             nameParts[0].charAt(0) + (nameParts.length > 1 ? nameParts[1].charAt(0) : "");
+
+        console.log("Navbar user:", user);
+        console.log("Navbar userType:", user.userType);
+            
         return initials.toUpperCase();
     };
 
@@ -59,6 +63,17 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                 >
                     Companies
                 </Link>
+
+                {/* Conditionally show "Post Job" link for employers */}
+                {user && user.userType === 'employer' && (
+                    <Link
+                        to="/job-posting-page"
+                        className="transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
+                    >
+                        Post Job
+                    </Link>
+                )}
+
                 <Link
                     to="/all-jobs"
                     className="transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
@@ -162,6 +177,17 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                     >
                         Companies
                     </Link>
+
+                    {/* Conditionally show "Post Job" link for employers in mobile */}
+                    {user && user.userType === 'employer' && (
+                        <Link
+                            to="/job-posting-page"
+                            className="block text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
+                        >
+                            Post Job
+                        </Link>
+                    )}
+
                     <Link
                         to="/all-jobs"
                         className="block text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"

@@ -32,6 +32,7 @@ const SignIn = ({ isDarkMode, onLogin }) => {
                 setUserType(userType);
                 setName(name);
                 onLogin({ name, email, userType }); 
+                localStorage.setItem('user', JSON.stringify({ name, email, userType }));
                 setShowSuccessDialog(true);
             } else {
                 setErrorMessage('Unexpected response. Please try again.');

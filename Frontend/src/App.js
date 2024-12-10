@@ -33,6 +33,13 @@ function App() {
         return () => clearTimeout(timer);
     }, []);
 
+    useEffect(() => {
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        }
+    },[])
+
 
     const handleLogin = (userData) => {
         console.log("User data: ", userData);        
@@ -41,6 +48,7 @@ function App() {
 
     const handleLogout = () => {
         logout("user");
+        localStorage.removeItem('user');
         setUser(null);
     };
 

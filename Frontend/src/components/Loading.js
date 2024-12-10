@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 
 function Loading({ isDarkMode }) {
   const [progress, setProgress] = useState(0);
@@ -28,13 +29,8 @@ function Loading({ isDarkMode }) {
         <div className="text-center">
           <div className="text-5xl font-extrabold text-blue-600 animate-pulse">JobConnect</div>
         </div>
-        <div className="w-full max-w-md mx-auto h-2 bg-transparent rounded-full relative">
-          <div
-            className={`absolute top-0 left-0 h-full rounded-full transition-all ease-in-out duration-500 ${
-               'bg-blue-600' 
-            }`}
-            style={{ width: `${progress}%` }}
-          />
+        <div className="flex justify-center mt-4">
+          <ScaleLoader color={isDarkMode ? '#ffffff' : '#000000'} loading={true} size={50} />
         </div>
         <div className="text-xl font-light text-center text-white mt-4">Loading...</div>
       </div>

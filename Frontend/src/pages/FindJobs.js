@@ -3,6 +3,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Search, MapPin, Briefcase, Users, TrendingUp, Building } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { searchJob } from '../ConfigAPI';
 
 
 const FindJobs = ({ isDarkMode }) => {
@@ -21,10 +22,19 @@ const FindJobs = ({ isDarkMode }) => {
         AOS.refresh();
     }, [isDarkMode]);
 
+    const handleSearchResults = async () => {
+        try {
+            const response = await searchJob({ title:jobTitle, location });
+            // console.log("Search Results:", response);
+        } catch (error) {
+            console.log("Error:", error);
+        }
+    }
 
     const handleSearch = (e) => {
         e.preventDefault();
         console.log('Searching for jobs:', { jobTitle, location });
+        handleSearchResults();      
     };
 
     const features = [

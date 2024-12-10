@@ -68,13 +68,46 @@ const getAllJobs = asyncHandler(async (req,res,next) => {
     )
 })
 
-// const getEmployers = async (jobs) => {
-//     const employers = await Promise.all(
-//         jobs.map(async (job) => {
-//             return await Employer.findById(job.postedBy);
-//         })
-//     );
-//     return employers;
-// }
+const searchJobs = asyncHandler(async (req,res,next) => {
+    
+    const {title,location} = req.body;
+    // console.log("Search:",title,location);
+    
 
-export {postJobs, getAllJobs}
+    const matchConditions=[]
+    if(title){
+        matchConditions.push({title:{$regex:title,$options:"i"}})
+    }
+    if(location){
+        matchConditions.push({location:{$regex:location,$options:"i"}})
+    }
+
+    const pipeline=[]
+    if(matchConditions.length>0){
+        pipeline.push({
+            $match:{
+                $and:matchConditions
+            }
+        })
+    }
+
+    pipeline.push({
+        $sort:{
+            createdAt:-1
+        }
+    })
+
+    const jobs = await Job.aggregate(pipeline)
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            jobs,
+            "Search results"
+        )
+    )
+
+})
+
+export {postJobs, getAllJobs, searchJobs}

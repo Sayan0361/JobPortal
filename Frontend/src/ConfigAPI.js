@@ -137,4 +137,16 @@ const postJob = async (formData) => {
     }
 }
 
-export {signup, login, logout, getJobs, postJob};
+const searchJob = async(queryData) => {
+    try {
+        const endpoint = `${API_BASE_URL}/jobs/search`;
+
+        const response = await axios.post(endpoint, queryData)
+        console.log("Response", response);
+        return response.data.data;
+    } catch (error) {
+        console.log("Error in searchJob", error);        
+    }
+}
+
+export {signup, login, logout, getJobs, postJob, searchJob};

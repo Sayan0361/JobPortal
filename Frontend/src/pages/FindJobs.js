@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { Search, MapPin, Briefcase, Users, TrendingUp, Building } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Search, MapPin, Briefcase, Users, TrendingUp, Building } from 'lucide-react';
+import { searchJob } from '../ConfigAPI';
 
 const FindJobs = ({ isDarkMode }) => {
   const [jobTitle, setJobTitle] = useState('');
   const [location, setLocation] = useState('');
   const [filteredJobSuggestions, setFilteredJobSuggestions] = useState([]);
   const [filteredCitySuggestions, setFilteredCitySuggestions] = useState([]);
-  const [expandedIndex, setExpandedIndex] = React.useState(null);
+  const [searchResults, setSearchResults] = useState([]);
+  const [expandedIndex, setExpandedIndex] = useState(null);
+  const [searchPerformed, setSearchPerformed] = useState(false); // Track if search has been performed
+
+  
 
   const faqs = [
     {
@@ -42,7 +47,7 @@ const FindJobs = ({ isDarkMode }) => {
     'Full Stack Developer',
     'Backend Engineer',
     'ML Engineer',
-    'Frontend Developer',
+    'Frontend Engineer',
     'Java Developer',
     'Mechanical Engineer',
     'Electrical Engineer',
@@ -123,15 +128,26 @@ const FindJobs = ({ isDarkMode }) => {
     AOS.refresh();
   }, [isDarkMode]);
 
-  const handleToggle = (index) => {
-    setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
+  const handleSearchResults = async () => {
+    // Only perform search if either job title or location is not empty
+    if (!jobTitle && !location) {
+      setSearchResults([]);
+      setSearchPerformed(false);
+      return;
+    }
+
+    setSearchPerformed(true);
+    try {
+      const response = await searchJob({ title: jobTitle, location });
+      setSearchResults(response || []);
+    } catch (error) {
+      console.log("Error:", error);
+    }
   };
-  
 
   const handleJobTitleChange = (e) => {
     const value = e.target.value;
     setJobTitle(value);
-
     if (value) {
       const filtered = jobTitles.filter((title) =>
         title.toLowerCase().includes(value.toLowerCase())
@@ -145,7 +161,6 @@ const FindJobs = ({ isDarkMode }) => {
   const handleLocationChange = (e) => {
     const value = e.target.value;
     setLocation(value);
-
     if (value) {
       const filtered = cities.filter((city) =>
         city.toLowerCase().includes(value.toLowerCase())
@@ -156,30 +171,29 @@ const FindJobs = ({ isDarkMode }) => {
     }
   };
 
-  const handleSearch = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Searching for jobs:', { jobTitle, location });
+    // Only submit if either job title or location is not empty
+    if (jobTitle || location) {
+      handleSearchResults();
+    }
   };
 
-  const handleJobSuggestionClick = (suggestion) => {
-    setJobTitle(suggestion);
-    setFilteredJobSuggestions([]);
+  const clearSearchResults = () => {
+    setSearchResults([]);
+    setSearchPerformed(false);
   };
 
-  const handleCitySuggestionClick = (suggestion) => {
-    setLocation(suggestion);
-    setFilteredCitySuggestions([]);
-  };
-
-  const highlightMatch = (text, match) => {
-    const parts = text.split(new RegExp(`(${match})`, 'gi'));
-    return parts.map((part, index) =>
-      part.toLowerCase() === match.toLowerCase() ? (
-        <span key={index} className="bg-blue-500">{part}</span>
-      ) : (
-        part
-      )
+  const highlightMatch = (text, searchTerm) => {
+    if (!searchTerm) return text;
+    const regex = new RegExp(`(${searchTerm})`, 'gi');
+    return text.split(regex).map((part, index) =>
+      regex.test(part) ? <span key={index} style={{ fontWeight: 'bold', color: 'blue' }}>{part}</span> : part
     );
+  };
+
+  const handleToggle = (index) => {
+    setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
   return (
@@ -195,7 +209,7 @@ const FindJobs = ({ isDarkMode }) => {
       </div>
 
       {/* Search Form */}
-      <form onSubmit={handleSearch} className={`max-w-3xl mx-auto ${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg rounded-lg overflow-hidden flex mb-12 flex-col md:flex-row`} data-aos="fade-up">
+      <form onSubmit={handleSubmit} className={`max-w-3xl mx-auto ${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg rounded-lg overflow-hidden flex mb-12 flex-col md:flex-row`} data-aos="fade-up">
         <div className="flex-1 flex items-center border border-gray-300 rounded-l-lg mb-4 md:mb-0 md:mr-2">
           <Search className={`ml-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`} />
           <input
@@ -231,7 +245,11 @@ const FindJobs = ({ isDarkMode }) => {
             <li
               key={index}
               className={`p-2 ${isDarkMode ? 'bg-gray-800' : 'bg-white'} border ${isDarkMode ? 'border-gray-700' : 'border-gray-300'} rounded-md cursor-pointer`}
-              onClick={() => handleJobSuggestionClick(suggestion)}
+              onClick={() => {
+                setJobTitle(suggestion);
+                setFilteredJobSuggestions([]);
+                handleSearchResults();
+              }}
             >
               {highlightMatch(suggestion, jobTitle)}
             </li>
@@ -246,7 +264,10 @@ const FindJobs = ({ isDarkMode }) => {
             <li
               key={index}
               className={`p-2 ${isDarkMode ? 'bg-gray-800' : 'bg-white'} border ${isDarkMode ? 'border-gray-700' : 'border-gray-300'} rounded-md cursor-pointer`}
-              onClick={() => handleCitySuggestionClick(suggestion)}
+              onClick={() => {
+                setLocation(suggestion);
+                setFilteredCitySuggestions([]);
+              }}
             >
               {highlightMatch(suggestion, location)}
             </li>
@@ -254,8 +275,143 @@ const FindJobs = ({ isDarkMode }) => {
         </ul>
       )}
 
-      {/* Why Choose Us Section */}
-      <div className="mb-16" data-aos="fade-up">
+      {/* Search Results */}
+      <div className="mt-12 relative">
+        {searchPerformed && (
+          <div className="flex justify-between items-center mb-6 px-4">
+            <h2 className="text-2xl font-bold">
+              {searchResults.length > 0 
+                ? `${searchResults.length} Job${searchResults.length !== 1 ? 's' : ''} Found` 
+                : 'No Jobs Found'}
+            </h2>
+            {searchResults.length > 0 && (
+              <div className="flex items-center space-x-4">
+                <span className="text-sm text-gray-600">
+                  Showing results for: 
+                  <span className="font-semibold ml-2">
+                    {jobTitle || 'Any Job Title'} 
+                    {location && ` in ${location}`}
+                  </span>
+                </span>
+                <button 
+                  onClick={() => {
+                    setSearchResults([]);
+                    setSearchPerformed(false);
+                    setJobTitle('');
+                    setLocation('');
+                  }}
+                  className={`px-3 py-1 rounded-md text-sm transition-colors ${
+                    isDarkMode 
+                      ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
+                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  }`}
+                >
+                  Clear Search
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        <div className="w-full max-w-7xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4 justify-center items-center">
+          {searchPerformed && searchResults.length === 0 ? (
+            <div className="col-span-full text-center py-12">
+              <img 
+                src="/api/placeholder/400/300" 
+                alt="No results found" 
+                className="mx-auto mb-6 opacity-50"
+              />
+              <p className="text-2xl font-semibold text-gray-500 mb-4">
+                No Jobs Found
+              </p>
+              <p className="text-gray-400">
+                Try adjusting your search terms or explore different job categories
+              </p>
+              <div className="mt-6 flex justify-center space-x-4">
+                <button
+                  onClick={() => {
+                    setSearchPerformed(false);
+                    setJobTitle('');
+                    setLocation('');
+                  }}
+                  className={`px-6 py-2 rounded-md transition-colors ${
+                    isDarkMode 
+                      ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                      : 'bg-blue-500 text-white hover:bg-blue-600'
+                  }`}
+                >
+                  Reset Search
+                </button>
+                <Link 
+                  to="/all-jobs" 
+                  className={`px-6 py-2 rounded-md border transition-colors ${
+                    isDarkMode 
+                      ? 'border-gray-700 text-gray-300 hover:bg-gray-800' 
+                      : 'border-gray-300 text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  Browse All Jobs
+                </Link>
+              </div>
+            </div>
+          ) : (
+            searchResults.map((job, index) => (
+              <div
+                key={index}
+                className={`border p-4 rounded-lg ${isDarkMode ? 'bg-gray-800 text-gray-200 border-gray-700' : 'bg-white text-gray-900 border-gray-300'} shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl`}
+              >
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <h3 className="text-lg font-semibold">{job.title}</h3>
+                    <p className="text-sm text-gray-500">{job.company}</p>
+                  </div>
+                  <span 
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      isDarkMode 
+                        ? 'bg-blue-900 text-blue-300' 
+                        : 'bg-blue-100 text-blue-800'
+                    }`}
+                  >
+                    {job.type || 'Full Time'}
+                  </span>
+                </div>
+                
+                <div className="flex items-center text-sm text-gray-600 mb-3">
+                  <MapPin className="h-4 w-4 mr-2 opacity-70" />
+                  <span>{job.location}</span>
+                </div>
+                
+                <p className="mt-3 text-sm text-gray-700 mb-4">
+                  {job.description.length > 120 
+                    ? `${job.description.substring(0, 120)}...` 
+                    : job.description}
+                </p>
+                
+                <div className="mt-4 flex justify-between items-center text-sm">
+                  <Link
+                    to={`/job/${job.id}`}
+                    className="text-blue-600 hover:text-blue-800 font-medium"
+                  >
+                    View Details
+                  </Link>
+                  <button
+                    className={`px-4 py-1 text-white rounded-md ${
+                      isDarkMode 
+                        ? 'bg-blue-600 hover:bg-blue-700' 
+                        : 'bg-blue-600 hover:bg-blue-700'
+                    } transition-all duration-300`}
+                  >
+                    Apply Now
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
+       {/* Why Choose Us Section */}
+       <div className="mb-16" data-aos="fade-up">
         <h2 className="text-center text-3xl font-bold mb-8">Why Choose JobConnect?</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {features.map((feature, index) => (
@@ -389,7 +545,6 @@ const FindJobs = ({ isDarkMode }) => {
           Get Started
         </Link>
       </div>
-
     </div>
   );
 };

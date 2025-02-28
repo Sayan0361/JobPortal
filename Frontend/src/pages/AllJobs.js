@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Card from '../components/Card'; // Import the Card component
 import { getJobs } from '../ConfigAPI.js';
 
+
 const AllJobs = ({ isDarkMode }) => {
     // const jobs = [
     //     { id: 1, title: 'Software Engineer', description: 'Join our development team and work on cutting-edge software solutions.', link: '/job-details/1' },
@@ -45,6 +46,7 @@ const AllJobs = ({ isDarkMode }) => {
         {jobs.map(job => (
           <Card
             key={job._id}
+            id={job._id}
             title={job.title}
             description={job.description}
             company={job.company}

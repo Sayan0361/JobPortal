@@ -9,6 +9,7 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import JobPostingPage from './pages/JobPostingPage';
 import Loading from './components/Loading';
+import ApplyJob from './pages/ApplyJob';
 import { logout } from './ConfigAPI';
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
     const [isDarkMode, setIsDarkMode] = useState(initialTheme);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
-    const [jobs, setJobs] = useState([]);
+    // const [jobs, setJobs] = useState([]);
 
     const toggleTheme = () => {
         const newTheme = !isDarkMode;
@@ -52,9 +53,9 @@ function App() {
         setUser(null);
     };
 
-    const handleShowJobs = (jobList) => {
-        setJobs(jobList);
-    }
+    // const handleShowJobs = (jobList) => {
+    //     setJobs(jobList);
+    // }
 
     return (
         <Router>
@@ -74,6 +75,8 @@ function App() {
                     <Route path="/all-jobs" element={<AllJobs isDarkMode={isDarkMode}/>} />
                     <Route path="/signin" element={<SignIn isDarkMode={isDarkMode} onLogin={handleLogin} />} />
                     <Route path="/signup" element={<SignUp isDarkMode={isDarkMode} />} />
+                    <Route path="/apply-job" element={<ApplyJob isDarkMode={isDarkMode} />} />
+
                 </Routes>
                 <Footer isDarkMode={isDarkMode} />
             </div>

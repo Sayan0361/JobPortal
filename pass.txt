@@ -1,0 +1,7 @@
+USER:
+email => jp@bose
+PASS => 1234
+
+EMPLOYER:
+email => sayan2002@gmail.com
+PASS => Bose2002

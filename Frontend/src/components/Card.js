@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useNavigate } from "react-router-dom";
 
-const Card = ({ title, description, company, location, salary, isDarkMode }) => {
+const Card = ({ id, title, description, company, location, salary, isDarkMode }) => {
+    const navigate = useNavigate();
     useEffect(() => {
         AOS.init({ duration: 1000,
             easing: 'ease-in-out',
@@ -12,6 +14,13 @@ const Card = ({ title, description, company, location, salary, isDarkMode }) => 
     useEffect(() => {
         AOS.refresh();
     }, [isDarkMode]);
+
+    const handleApplications = () => {
+        console.log("Applying for job:", title);  
+        console.log("ID:", id);              
+        navigate('/apply-job', { state: { title, company } });
+        // navigate('/apply-job');
+    }
 
     return (
         <div
@@ -39,6 +48,15 @@ const Card = ({ title, description, company, location, salary, isDarkMode }) => 
                 <div>
                     <p className="text-lg font-medium">Salary:</p>
                     <p className="text-sm text-gray-700 dark:text-gray-400">${salary}</p>
+                </div>
+                <div className="flex justify-end">
+                    <button
+                        onClick={handleApplications}
+                        className={`bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md 
+                            ${isDarkMode ? 'hover:bg-blue-700' : 'hover:bg-blue-400'}`}
+                    >
+                        Apply
+                    </button>
                 </div>
             </div>
         </div>

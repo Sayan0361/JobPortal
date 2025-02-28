@@ -9,9 +9,6 @@ const applicationSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "JobSeeker",
     },
-    resume:{
-        type: String, //cloudinary url
-    },
     status:{
         type: String,
         enum: ["Pending", "Accepted", "Rejected"],

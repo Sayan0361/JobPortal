@@ -17,12 +17,16 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
 
     const handleLogoutClick = () => {
         setIsDropdownOpen(false);
-        setIsLogoutConfirmOpen(true);
-        logout()
+        setIsLogoutConfirmOpen(true); // Open confirmation dialog
     };
-
+    
     const handleConfirmLogout = () => {
+        logout(); // Perform logout only when confirmed
         setIsLogoutConfirmOpen(false);
+    };
+    
+    const handleCancelLogout = () => {
+        setIsLogoutConfirmOpen(false); // Close the confirmation dialog without logging out
     };
 
     const getInitials = (name) => {
@@ -38,8 +42,7 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
 
     return (
         <nav
-            className={`w-full py-4 px-6 flex justify-between items-center shadow-md transition-colors sticky top-0 z-50 ${isDarkMode ? "bg-gray-900 text-white" : "bg-white text-black"
-                }`}
+            className={`w-full py-4 px-6 flex justify-between items-center shadow-lg backdrop-blur-lg transition-colors sticky top-0 z-50 $${isDarkMode ? "bg-gray-900/70 text-white" : "bg-white/70 text-gray-900"}`}
         >
             {/* Logo */}
             <div className="flex items-center">
@@ -263,36 +266,37 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                 </div>
             )}
 
-            {/* Logout Confirmation Dialog */}
-            {isLogoutConfirmOpen && (
+        {isLogoutConfirmOpen && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm animate-fadeIn">
                 <div
-                    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-                    onClick={() => setIsLogoutConfirmOpen(false)}
+                    className={`p-6 rounded-xl shadow-2xl w-96 transition-transform transform scale-95 hover:scale-100 ${
+                        isDarkMode
+                            ? "bg-gray-800 text-white border border-gray-700"
+                            : "bg-white text-black border border-gray-300"
+                    }`}
                 >
-                    <div
-                        className={`w-80 p-6 rounded-md shadow-lg ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-black"
-                            }`}
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <h2 className="text-lg font-medium mb-4">Confirm Logout</h2>
-                        <p className="mb-4">Are you sure you want to log out?</p>
-                        <div className="flex justify-end space-x-3">
-                            <button
-                                onClick={() => setIsLogoutConfirmOpen(false)}
-                                className="px-4 py-2 border rounded-md hover:bg-gray-500 transition"
-                            >
-                                No
-                            </button>
-                            <button
-                                onClick={handleConfirmLogout}
-                                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
-                            >
-                                Yes
-                            </button>
-                        </div>
+                    <h2 className="text-xl font-semibold mb-4 text-center">Confirm Logout</h2>
+                    <p className="mb-6 text-center text-gray-400">Are you sure you want to log out?</p>
+
+                    <div className="flex justify-center space-x-4">
+                        <button
+                            onClick={handleCancelLogout}
+                            className="px-5 py-2 rounded-lg border border-gray-500 text-gray-500 hover:bg-gray-600 hover:text-white transition-all"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={handleConfirmLogout}
+                            className="px-5 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-all shadow-md"
+                        >
+                            Logout
+                        </button>
                     </div>
                 </div>
-            )}
+            </div>
+        )}
+
+
         </nav>
     );
 };

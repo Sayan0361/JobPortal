@@ -4,6 +4,8 @@ import {ApiError} from '../utils/ApiError.js';
 import {JobSeeker} from '../models/JobSeeker.model.js';
 import {uploadOnCloudinary} from '../utils/cloudinary.js';
 import jwt from 'jsonwebtoken';
+import { Job } from '../models/job.model.js';
+import { Employer } from '../models/employer.model.js';
 
 const generateAccessandRefreshToken = async(userId)=> {
     try {
@@ -143,6 +145,52 @@ const logoutUser = asyncHandler(async (req,res,next) => {
     )
 })
 
+const appliedToJob = asyncHandler(async (req,res,next) => {
+    // const {jobId} = req.body
+    // console.log("Req Body in appliedToJob: ",req.body);    
+    const jobId = req.body.jobId;
+    console.log("Job ID in appliedToJob: ",jobId);
+    
+
+    if(!jobId){
+        return next(new ApiError(400,"Please provide job id"))
+    }
+
+    const job = await Job.findById(jobId)
+    if(!job){
+        throw new ApiError(404,"Job not found")
+    }
+
+    // console.log(job);
+    const userId = req.user._id
+
+    const user = await JobSeeker.findById(userId)
+    // console.log("User in appliedToJob: ",user);
+    
+    if(!user){
+        throw new ApiError(404,"User not found")
+    }
+    const updatedJobSeeker = await JobSeeker.findByIdAndUpdate(
+        userId,
+        {
+            $addToSet: {appliedJobs: jobId}
+        },
+        {new: true}
+    )
+
+    if(!updatedJobSeeker){
+        throw new ApiError(500,"Failed to apply to job")
+    }
+    return res
+    .status(200)
+    .json(
+        new ApiResponse(
+            200,
+            updatedJobSeeker,
+            "Applied to job successfully"
+        )
+    )
+})
 
 
-export {registerUser, loginUser, logoutUser }
+export {registerUser, loginUser, logoutUser, appliedToJob} 

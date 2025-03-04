@@ -2,14 +2,14 @@ import { asyncHandler } from "../utils/AsyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Job } from "../models/job.model.js";
-import { Employer } from "../models/employer.model.js";
 
 const postJobs = asyncHandler(async (req,res,next) => {
 
     const {title,description,location,company,salary} = req.body
-    const employerID = req.body.employerID
-
-    console.log(req.body);    
+    
+    // console.log(req.body);  
+    // console.log("User object in job controller:",req.user);
+    const employerID = req.user._id
     // const employerID = req.user._id
 
     if(!title || !description || !location || !company || !salary){

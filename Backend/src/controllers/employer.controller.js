@@ -22,7 +22,7 @@ const generateAccessandRefreshToken = async(userId) => {
 const registerEmployer = asyncHandler(async(req,res,next) => {
 
     const {name,email,password,company} = req.body
-    console.log(name,email,password,company);
+    // console.log(name,email,password,company);
     
 
     if(!name || !email || !password || !company){
@@ -67,7 +67,7 @@ const loginEmployer = asyncHandler(async(req,res,next) => {
         throw new ApiError(400,"Employer not found")
     }
 
-    const isPasswordValid = user.isPasswordMatch(password)
+    const isPasswordValid = await user.isPasswordMatch(password)
     if(!isPasswordValid){
         throw new ApiError(401,"Invalid Credentials")
     }
@@ -78,7 +78,8 @@ const loginEmployer = asyncHandler(async(req,res,next) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        // secure: true
+        sameSite: "lax",
     }
 
     return res
@@ -100,7 +101,7 @@ const loginEmployer = asyncHandler(async(req,res,next) => {
 const logoutEmployer = asyncHandler(async(req,res,next) => {
 
     await Employer.findByIdAndUpdate(
-        req.user._id,
+        req._id,
         {
             $set: {refreshToken: undefined}
         },
@@ -111,7 +112,8 @@ const logoutEmployer = asyncHandler(async(req,res,next) => {
 
     const options ={
         httpOnly: true,
-        secure: true
+        // secure: true,
+        sameSite: "lax",
     }
 
     return res
@@ -125,6 +127,16 @@ const logoutEmployer = asyncHandler(async(req,res,next) => {
             "Employer logged out successfully"
         )
     )
+})
+
+const postedJobs = asyncHandler(async(req,res,next) => {
+    const {jobsId} = req.body;
+
+    if(!jobsId){
+        return next(new ApiError(400,"Please provide all the required fields"))
+    }
+
+    
 })
 
 export {registerEmployer,loginEmployer,logoutEmployer}

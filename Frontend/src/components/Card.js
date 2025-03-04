@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
+import { saveJobToUser } from "../ConfigAPI";
 
 const Card = ({ id, title, description, company, location, salary, isDarkMode }) => {
     const navigate = useNavigate();
@@ -17,7 +18,8 @@ const Card = ({ id, title, description, company, location, salary, isDarkMode })
 
     const handleApplications = () => {
         console.log("Applying for job:", title);  
-        console.log("ID:", id);              
+        console.log("ID:", id);   
+        saveJobToUser(id);           
         navigate('/apply-job', { state: { title, company } });
         // navigate('/apply-job');
     }

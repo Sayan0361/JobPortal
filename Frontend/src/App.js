@@ -19,6 +19,7 @@ function App() {
     const [isDarkMode, setIsDarkMode] = useState(initialTheme);
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
+    const [userType, setUserType] = useState(null);
     // const [jobs, setJobs] = useState([]);
 
     const toggleTheme = () => {
@@ -43,14 +44,18 @@ function App() {
 
 
     const handleLogin = (userData) => {
-        console.log("User data: ", userData);        
+        console.log("User data: ", userData); 
         setUser(userData);
+        setUserType(userData.userType);
     };
 
-    const handleLogout = () => {
-        logout("user");
-        localStorage.removeItem('user');
+    const handleLogout = (userType) => {
+        console.log("User type in logout: ", userType);
+        
+        logout(userType);
+        localStorage.removeItem(userType);
         setUser(null);
+        setUserType(null);
     };
 
     // const handleShowJobs = (jobList) => {
@@ -65,7 +70,7 @@ function App() {
                     isDarkMode={isDarkMode}
                     toggleTheme={toggleTheme}
                     user={user}
-                    //userType={userType}
+                    userType={userType}
                     logout={handleLogout}
                 />
                 <Routes>

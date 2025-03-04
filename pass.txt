@@ -1,7 +1,10 @@
 USER:
-email => jp@bose
-PASS => 1234
+email => jp@bose, testuser@gmail.com
+PASS => 1234, Bose@2002
 
 EMPLOYER:
 email => sayan2002@gmail.com
 PASS => Bose2002
+
+karbyde@gmail.com
+Bose@2002

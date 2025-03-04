@@ -88,10 +88,15 @@ const logout = async (userType) => {
             throw new Error("Invalid userType provided");
         }
 
-        const endpoint =
-            userType === "employer"
-                ? `${API_BASE_URL}/employers/logout`
-                : `${API_BASE_URL}/users/logout`;
+        let endpoint = "";
+            // userType === "employer"
+            //     ? `${API_BASE_URL}/employers/logout`
+            //     : `${API_BASE_URL}/users/logout`;
+        if(userType === "employer"){
+            endpoint = `${API_BASE_URL}/employers/logout`
+        }else if(userType === "user"){
+            endpoint = `${API_BASE_URL}/users/logout`
+        }
 
         const response = await axios.post(endpoint, {}, { withCredentials: true });
 
@@ -129,6 +134,7 @@ const postJob = async (formData) => {
             headers: {
                 'Content-Type': 'multipart/form-data', // Need to specify this when sending FormData
             },
+            withCredentials: true,
         });
         console.log("Response", response);
         
@@ -149,4 +155,19 @@ const searchJob = async(queryData) => {
     }
 }
 
-export {signup, login, logout, getJobs, postJob, searchJob};
+const saveJobToUser = async(jobId) => {
+    try {
+        let endpoint = `${API_BASE_URL}/users/apply`;
+
+        console.log("Job ID: ", jobId);
+        const response = await axios.post(endpoint,{jobId},{
+            withCredentials: true,
+        });
+        console.log("Response", response);
+        return response;
+    } catch (error) {
+        console.log("Error in applyJob", error);        
+    }
+}
+
+export {signup, login, logout, getJobs, postJob, searchJob, saveJobToUser};

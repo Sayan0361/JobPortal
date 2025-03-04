@@ -4,10 +4,10 @@ import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/AsyncHandler.js";
 import jwt from "jsonwebtoken";
 
-export const verifyJWT = asyncHandler(async (req,res,next) => {
+const verifyJWT = asyncHandler(async (req,res,next) => {
     try {
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ","")
-        console.log("Token", token);        
+        // console.log("Token", token);        
 
         if(!token){
             throw new ApiError(401,"Access token not found")
@@ -27,9 +27,10 @@ export const verifyJWT = asyncHandler(async (req,res,next) => {
         throw new ApiError(401, error?.message || "Invalid access token")
     }
 })
-export const verifyJWTEmployer = asyncHandler(async (req,res,next) => {
+const verifyJWTEmployer = asyncHandler(async (req,res,next) => {
     try {
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ","")
+        console.log("Token Employer", token);
 
         if(!token){
             throw new ApiError(401,"Access token not found")
@@ -49,3 +50,5 @@ export const verifyJWTEmployer = asyncHandler(async (req,res,next) => {
         throw new ApiError(401, error?.message || "Invalid access token")
     }
 })
+
+export {verifyJWT, verifyJWTEmployer}

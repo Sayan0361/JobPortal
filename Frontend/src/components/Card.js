@@ -3,6 +3,8 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import { useNavigate } from "react-router-dom";
 import { FaBriefcase, FaMapMarkerAlt, FaMoneyBillWave, FaBuilding, FaStar, FaHeart, FaShareAlt } from "react-icons/fa";
+import { saveJobToUser } from "../ConfigAPI";
+
 
 const Card = ({ id, title, description, company, location, salary, isDarkMode }) => {
     const navigate = useNavigate();
@@ -15,10 +17,14 @@ const Card = ({ id, title, description, company, location, salary, isDarkMode })
         AOS.refresh();
     }, [isDarkMode]);
 
-    const handleApply = () => {
-        console.log("Applying for job:", title);
-        navigate('/apply-job', { state: { title, company, id } });
-    };
+    const handleApplications = () => {
+        console.log("Applying for job:", title);  
+        console.log("ID:", id);   
+        saveJobToUser(id);           
+        navigate('/apply-job', { state: { title, company } });
+        // navigate('/apply-job');
+    }
+
 
     return (
         <div
@@ -97,7 +103,7 @@ const Card = ({ id, title, description, company, location, salary, isDarkMode })
             {/* Apply Button */}
             <div className="flex justify-center mt-6">
                 <button
-                    onClick={handleApply}
+                    onClick={handleApplications}
                     className={`relative px-6 py-3 text-lg font-bold rounded-xl transition-all duration-300 overflow-hidden
                         ${isDarkMode ? 
                             "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-600/50" 

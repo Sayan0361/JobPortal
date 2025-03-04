@@ -21,6 +21,9 @@ const employerSchema = new mongoose.Schema({
         type: String,
         // required: true,
     },
+    refreshToken:{
+        type: String
+    },
     // postedJobs: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: "Job",
@@ -42,7 +45,6 @@ employerSchema.methods.generateAccessToken = async function(){
         {
             _id: this._id,
             email: this.email,
-            name: this.name,
         },
         process.env.ACCESS_TOKEN_SECRET,
         {

@@ -19,30 +19,28 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
         setIsDropdownOpen(false);
         setIsLogoutConfirmOpen(true); // Open confirmation dialog
     };
-    
+
     const handleConfirmLogout = () => {
-        logout(); // Perform logout only when confirmed
+        logout(); // Perform logout
         setIsLogoutConfirmOpen(false);
     };
-    
+
     const handleCancelLogout = () => {
-        setIsLogoutConfirmOpen(false); // Close the confirmation dialog without logging out
+        setIsLogoutConfirmOpen(false); // Close confirmation dialog
     };
 
     const getInitials = (name) => {
         const nameParts = name.split(" ");
         const initials =
             nameParts[0].charAt(0) + (nameParts.length > 1 ? nameParts[1].charAt(0) : "");
-
-        console.log("Navbar user:", user);
-        console.log("Navbar userType:", user.userType);
-            
         return initials.toUpperCase();
     };
 
     return (
         <nav
-            className={`w-full py-4 px-6 flex justify-between items-center shadow-lg backdrop-blur-lg transition-colors sticky top-0 z-50 $${isDarkMode ? "bg-gray-900/70 text-white" : "bg-white/70 text-gray-900"}`}
+            className={`w-full py-4 px-6 flex justify-between items-center shadow-lg backdrop-blur-lg transition-colors sticky top-0 z-50 ${
+                isDarkMode ? "bg-gray-900/70 text-white" : "bg-white/70 text-gray-900"
+            }`}
         >
             {/* Logo */}
             <div className="flex items-center">
@@ -68,7 +66,7 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                 </Link>
 
                 {/* Conditionally show "Post Job" link for employers */}
-                {user && user.userType === 'employer' && (
+                {user && user.userType === "employer" && (
                     <Link
                         to="/job-posting-page"
                         className="transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
@@ -88,6 +86,7 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                 <button
                     onClick={toggleTheme}
                     className="hover:bg-gray-400 p-2 rounded-full transition-all duration-200 ease-in-out"
+                    aria-label="Toggle theme"
                 >
                     {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
                 </button>
@@ -98,6 +97,8 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                         <button
                             onClick={handleDropdownToggle}
                             className="flex items-center space-x-2"
+                            aria-expanded={isDropdownOpen}
+                            aria-label="User menu"
                         >
                             {user.profilePic ? (
                                 <img
@@ -116,18 +117,22 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                         {/* Dropdown Menu */}
                         {isDropdownOpen && (
                             <div
-                                className={`absolute top-12 right-0 w-48 rounded-md shadow-lg p-2 ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-black"
-                                    }`}
+                                className={`absolute top-12 right-0 w-48 rounded-md shadow-lg p-2 ${
+                                    isDarkMode ? "bg-gray-800 text-white" : "bg-white text-black"
+                                }`}
+                                role="menu"
                             >
                                 <button
                                     onClick={handleLogoutClick}
                                     className="block w-full text-left px-4 py-2 hover:bg-gray-500 rounded-md transition"
+                                    role="menuitem"
                                 >
                                     Logout
                                 </button>
                                 <button
                                     onClick={() => setIsDropdownOpen(false)}
                                     className="block w-full text-left px-4 py-2 hover:bg-gray-500 rounded-md transition"
+                                    role="menuitem"
                                 >
                                     Close
                                 </button>
@@ -157,6 +162,7 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                 <button
                     onClick={handleMenuToggle}
                     className="text-blue-600 hover:bg-gray-100 p-2 rounded-full transition-all duration-200 ease-in-out"
+                    aria-label="Toggle mobile menu"
                 >
                     {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
@@ -165,8 +171,9 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
                 <div
-                    className={`absolute top-16 left-0 w-full p-6 space-y-4 transition-all duration-200 ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-black"
-                        }`}
+                    className={`absolute top-16 left-0 w-full p-6 space-y-4 transition-all duration-200 ${
+                        isDarkMode ? "bg-gray-800 text-white" : "bg-white text-black"
+                    }`}
                 >
                     <Link
                         to="/"
@@ -182,7 +189,7 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                     </Link>
 
                     {/* Conditionally show "Post Job" link for employers in mobile */}
-                    {user && user.userType === 'employer' && (
+                    {user && user.userType === "employer" && (
                         <Link
                             to="/job-posting-page"
                             className="block text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
@@ -202,6 +209,7 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                     <button
                         onClick={toggleTheme}
                         className="block w-full text-left hover:bg-gray-200 p-2 rounded-md transition-all duration-200"
+                        aria-label="Toggle theme"
                     >
                         {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
                     </button>
@@ -212,6 +220,8 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                             <button
                                 onClick={handleDropdownToggle}
                                 className="flex items-center space-x-2 w-full text-left"
+                                aria-expanded={isDropdownOpen}
+                                aria-label="User menu"
                             >
                                 {user.profilePic ? (
                                     <img
@@ -229,18 +239,22 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
 
                             {isDropdownOpen && (
                                 <div
-                                    className={`absolute top-20 right-4 w-48 rounded-md shadow-lg p-2 ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-black"
-                                        }`}
+                                    className={`absolute top-20 right-4 w-48 rounded-md shadow-lg p-2 ${
+                                        isDarkMode ? "bg-gray-800 text-white" : "bg-white text-black"
+                                    }`}
+                                    role="menu"
                                 >
                                     <button
                                         onClick={handleLogoutClick}
                                         className="block w-full text-left px-4 py-2 hover:bg-gray-500 rounded-md transition"
+                                        role="menuitem"
                                     >
                                         Logout
                                     </button>
                                     <button
                                         onClick={() => setIsDropdownOpen(false)}
                                         className="block w-full text-left px-4 py-2 hover:bg-gray-500 rounded-md transition"
+                                        role="menuitem"
                                     >
                                         Close
                                     </button>
@@ -266,37 +280,36 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                 </div>
             )}
 
-        {isLogoutConfirmOpen && (
-            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm animate-fadeIn">
-                <div
-                    className={`p-6 rounded-xl shadow-2xl w-96 transition-transform transform scale-95 hover:scale-100 ${
-                        isDarkMode
-                            ? "bg-gray-800 text-white border border-gray-700"
-                            : "bg-white text-black border border-gray-300"
-                    }`}
-                >
-                    <h2 className="text-xl font-semibold mb-4 text-center">Confirm Logout</h2>
-                    <p className="mb-6 text-center text-gray-400">Are you sure you want to log out?</p>
+            {/* Logout Confirmation Modal */}
+            {isLogoutConfirmOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm animate-fadeIn">
+                    <div
+                        className={`p-6 rounded-xl shadow-2xl w-96 transition-transform transform scale-95 hover:scale-100 ${
+                            isDarkMode
+                                ? "bg-gray-800 text-white border border-gray-700"
+                                : "bg-white text-black border border-gray-300"
+                        }`}
+                    >
+                        <h2 className="text-xl font-semibold mb-4 text-center">Confirm Logout</h2>
+                        <p className="mb-6 text-center text-gray-400">Are you sure you want to log out?</p>
 
-                    <div className="flex justify-center space-x-4">
-                        <button
-                            onClick={handleCancelLogout}
-                            className="px-5 py-2 rounded-lg border border-gray-500 text-gray-500 hover:bg-gray-600 hover:text-white transition-all"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            onClick={handleConfirmLogout}
-                            className="px-5 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-all shadow-md"
-                        >
-                            Logout
-                        </button>
+                        <div className="flex justify-center space-x-4">
+                            <button
+                                onClick={handleCancelLogout}
+                                className="px-5 py-2 rounded-lg border border-gray-500 text-gray-500 hover:bg-gray-600 hover:text-white transition-all"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleConfirmLogout}
+                                className="px-5 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition-all shadow-md"
+                            >
+                                Logout
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        )}
-
-
+            )}
         </nav>
     );
 };

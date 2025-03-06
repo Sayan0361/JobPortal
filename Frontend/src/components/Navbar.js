@@ -17,7 +17,9 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
 
     const handleLogoutClick = () => {
         setIsDropdownOpen(false);
-        setIsLogoutConfirmOpen(true); // Open confirmation dialog
+        setIsLogoutConfirmOpen(true);
+        logout(user.userType);
+
     };
 
     const handleConfirmLogout = () => {

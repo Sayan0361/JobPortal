@@ -17,7 +17,7 @@ const jobseekerSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        unique: true,
+        unique: true, 
         required: true,
         index: true,
     },
@@ -27,10 +27,10 @@ const jobseekerSchema = new mongoose.Schema({
     resume: {
         type: String, //cloudinary url
     },
-    // appliedJobs: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Job",
-    // }
+    appliedJobs: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
+    }
 },{timestamps:true})
 
 jobseekerSchema.pre("save",async function(next){

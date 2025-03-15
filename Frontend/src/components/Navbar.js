@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Sun, Moon, Menu, X, User } from "lucide-react";
+import { Sun, Moon, Menu, X, User, Home, Building,BriefcaseBusiness, Users, Briefcase, LogIn, UserPlus } from "lucide-react";
 
 const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -19,7 +19,6 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
         setIsDropdownOpen(false);
         setIsLogoutConfirmOpen(true);
         logout(user.userType);
-
     };
 
     const handleConfirmLogout = () => {
@@ -47,43 +46,57 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
             {/* Logo */}
             <div className="flex items-center">
                 <Link to="/" className="flex items-center space-x-2 text-2xl font-bold text-blue-600">
-                    <User size={32} />
+                    {/* <User size={32} /> */}
                     <span>JobConnect</span>
                 </Link>
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex items-center space-x-6">
+            <div className="hidden md:flex items-center space-x-8">
                 <Link
                     to="/"
-                    className="transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
+                    className="flex items-center space-x-2 transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
                 >
-                    Home
+                    <Home size={20} />
+                    <span>Home</span>
                 </Link>
                 <Link
                     to="/companies"
-                    className="transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
+                    className="flex items-center space-x-2 transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
                 >
-                    Companies
+                    <Building size={20} />
+                    <span>Companies</span>
+                </Link>
+                <Link
+                    to="/community-page"
+                    className="flex items-center space-x-2 transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
+                >
+                    <Users size={20} />
+                    <span>Community</span>
                 </Link>
 
                 {/* Conditionally show "Post Job" link for employers */}
                 {user && user.userType === "employer" && (
                     <Link
                         to="/job-posting-page"
-                        className="transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
+                        className="flex items-center space-x-2 transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
                     >
-                        Post Job
+                        <BriefcaseBusiness size={20} />
+                        <span>Post Job</span>
                     </Link>
                 )}
 
                 <Link
                     to="/all-jobs"
-                    className="transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
+                    className="flex items-center space-x-2 transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
                 >
-                    All Jobs
+                    <Briefcase size={20} />
+                    <span>All Jobs</span>
                 </Link>
+            </div>
 
+            {/* Right Side: Theme Toggle and User Info */}
+            <div className="hidden md:flex items-center space-x-6">
                 {/* Theme Toggle */}
                 <button
                     onClick={toggleTheme}
@@ -145,15 +158,17 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                     <div className="flex space-x-3">
                         <Link
                             to="/signin"
-                            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 hover:scale-105 transition-all duration-200"
+                            className="flex items-center space-x-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 hover:scale-105 transition-all duration-200"
                         >
-                            Sign In
+                            <LogIn size={20} />
+                            <span>Sign In</span>
                         </Link>
                         <Link
                             to="/signup"
-                            className="border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-50 hover:scale-105 transition-all duration-200"
+                            className="flex items-center space-x-2 border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-50 hover:scale-105 transition-all duration-200"
                         >
-                            Sign Up
+                            <UserPlus size={20} />
+                            <span>Sign Up</span>
                         </Link>
                     </div>
                 )}
@@ -179,41 +194,54 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                 >
                     <Link
                         to="/"
-                        className="block text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
+                        className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
                     >
-                        Home
+                        <Home size={20} />
+                        <span>Home</span>
                     </Link>
                     <Link
                         to="/companies"
-                        className="block text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
+                        className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
                     >
-                        Companies
+                        <Building size={20} />
+                        <span>Companies</span>
+                    </Link>
+
+                    <Link
+                        to="/community-page"
+                        className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
+                    >
+                        <Users size={20} />
+                        <span>Community</span>
                     </Link>
 
                     {/* Conditionally show "Post Job" link for employers in mobile */}
                     {user && user.userType === "employer" && (
                         <Link
                             to="/job-posting-page"
-                            className="block text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
+                            className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
                         >
-                            Post Job
+                            <BriefcaseBusiness size={20} />
+                            <span>Post Job</span>
                         </Link>
                     )}
 
                     <Link
                         to="/all-jobs"
-                        className="block text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
+                        className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
                     >
-                        All Jobs
+                        <Briefcase size={20} />
+                        <span>All Jobs</span>
                     </Link>
 
                     {/* Theme Toggle */}
                     <button
                         onClick={toggleTheme}
-                        className="block w-full text-left hover:bg-gray-200 p-2 rounded-md transition-all duration-200"
+                        className="flex items-center space-x-2 w-full text-left hover:bg-gray-200 p-2 rounded-md transition-all duration-200"
                         aria-label="Toggle theme"
                     >
                         {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+                        <span>Toggle Theme</span>
                     </button>
 
                     {/* User Info or Sign In/Sign Up in Mobile */}
@@ -267,15 +295,17 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                         <div className="space-y-2 border-t pt-4">
                             <Link
                                 to="/signin"
-                                className="block text-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+                                className="flex items-center space-x-2 text-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
                             >
-                                Sign In
+                                <LogIn size={20} />
+                                <span>Sign In</span>
                             </Link>
                             <Link
                                 to="/signup"
-                                className="block text-center border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-50 transition"
+                                className="flex items-center space-x-2 text-center border border-blue-500 text-blue-500 px-4 py-2 rounded-md hover:bg-blue-50 transition"
                             >
-                                Sign Up
+                                <UserPlus size={20} />
+                                <span>Sign Up</span>
                             </Link>
                         </div>
                     )}

@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import FindJobs from './pages/FindJobs';
 import Companies from './pages/Companies';
+import CommunityPage from './pages/CommunityPage';
 import AllJobs from './pages/AllJobs';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -76,6 +77,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<FindJobs isDarkMode={isDarkMode} user={user} />} />
                     <Route path="/companies" element={<Companies isDarkMode={isDarkMode} />} />
+                    <Route path="/community-page" element={<CommunityPage isDarkMode={isDarkMode} />} />
                     <Route path="/job-posting-page" element={<JobPostingPage isDarkMode={isDarkMode} />} />
                     <Route path="/all-jobs" element={<AllJobs isDarkMode={isDarkMode}/>} />
                     <Route path="/signin" element={<SignIn isDarkMode={isDarkMode} onLogin={handleLogin} />} />

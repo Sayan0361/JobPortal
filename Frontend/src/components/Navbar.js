@@ -18,12 +18,14 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
     const handleLogoutClick = () => {
         setIsDropdownOpen(false);
         setIsLogoutConfirmOpen(true);
-        logout(user.userType);
+        if(user) logout(user.userType);
 
     };
     
     const handleConfirmLogout = () => {
-        logout(); // Perform logout only when confirmed
+        console.log("User type in logout: ", user);
+        
+        if(user) logout(user.userType); // Perform logout only when confirmed
         setIsLogoutConfirmOpen(false);
     };
     

@@ -89,24 +89,29 @@ const logout = async (userType) => {
         }
 
         let endpoint = "";
-            // userType === "employer"
-            //     ? `${API_BASE_URL}/employers/logout`
-            //     : `${API_BASE_URL}/users/logout`;
         if(userType === "employer"){
             endpoint = `${API_BASE_URL}/employers/logout`
         }else if(userType === "user"){
             endpoint = `${API_BASE_URL}/users/logout`
         }
 
-        const response = await axios.post(endpoint, {}, { withCredentials: true });
+        const response = await axios.post(endpoint, {}, { 
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
 
         if (response.status === 200) {
             console.log("Logged out successfully:", response.data);
+            return response;
         } else {
             console.warn("Unexpected response status:", response.status);
+            throw new Error("Logout failed");
         }
     } catch (error) {
         console.error("Error in logout:", error.response?.data || error.message);
+        throw error;
     }
 };
 

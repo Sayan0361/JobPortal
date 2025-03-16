@@ -101,7 +101,7 @@ const loginEmployer = asyncHandler(async(req,res,next) => {
 const logoutEmployer = asyncHandler(async(req,res,next) => {
 
     await Employer.findByIdAndUpdate(
-        req._id,
+        req.user._id,
         {
             $set: {refreshToken: undefined}
         },

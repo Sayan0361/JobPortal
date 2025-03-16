@@ -119,7 +119,7 @@ const loginUser = asyncHandler(async (req,res,next)=> {
 const logoutUser = asyncHandler(async (req,res,next) => {
 
     await JobSeeker.findByIdAndUpdate(
-        req._id,
+        req.user._id,
         {
             $set: {refreshToken: undefined}
         },

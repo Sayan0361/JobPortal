@@ -50,13 +50,17 @@ function App() {
         setUserType(userData.userType);
     };
 
-    const handleLogout = (userType) => {
-        console.log("User type in logout: ", userType);
-        
-        logout(userType);
-        localStorage.removeItem(userType);
-        setUser(null);
-        setUserType(null);
+    const handleLogout = async (userType) => {
+        try {
+            console.log("User type in logout: ", userType);
+            await logout(userType);
+            localStorage.removeItem('user');
+            setUser(null);
+            setUserType(null);
+        } catch (error) {
+            console.error("Error during logout:", error);
+            // Optionally show an error message to the user
+        }
     };
 
     // const handleShowJobs = (jobList) => {

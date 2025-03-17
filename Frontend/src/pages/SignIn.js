@@ -92,7 +92,7 @@ const SignIn = ({ isDarkMode, onLogin }) => {
                                 isDarkMode ? 'text-blue-500' : 'text-blue-600'
                             }`}
                         >
-                            Sign in to JobConnect
+                            Sign in to HireMe
                         </h2>
                     </div>
 

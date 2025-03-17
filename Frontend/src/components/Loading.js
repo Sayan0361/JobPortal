@@ -27,7 +27,7 @@ function Loading({ isDarkMode }) {
     >
       <div className="w-full max-w-sm px-4 space-y-6">
         <div className="text-center">
-          <div className="text-5xl font-extrabold text-blue-600 animate-pulse">JobConnect</div>
+          <div className="text-5xl font-extrabold text-blue-600 animate-pulse">HireMe</div>
         </div>
         <div className="flex justify-center mt-4">
           <ScaleLoader color={isDarkMode ? '#ffffff' : '#000000'} loading={true} size={50} />

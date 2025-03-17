@@ -8,7 +8,7 @@ const CallToAction = ({ isDarkMode }) => {
         Ready to <span className="text-blue-500">Find Your Dream Job?</span>
       </h2>
       <p className={`mb-6 text-lg ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
-        Join <span className="font-semibold">JobConnect</span> today and start your journey toward an amazing career.
+        Join <span className="font-semibold">HireMe</span> today and start your journey toward an amazing career.
       </p>
 
       <Link

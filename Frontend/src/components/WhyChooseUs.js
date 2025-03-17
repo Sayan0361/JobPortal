@@ -2,7 +2,7 @@ const WhyChooseUs = ({ features = [], isDarkMode }) => {
     return (
       <div className="mb-16" data-aos="fade-up">
         <h2 className="text-center text-4xl font-bold mb-10 tracking-wide">
-          Why Choose <span className="text-blue-500">JobConnect?</span>
+          Why Choose <span className="text-blue-500">HireMe?</span>
         </h2>
   
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">

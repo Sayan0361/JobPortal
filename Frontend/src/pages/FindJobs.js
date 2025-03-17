@@ -24,12 +24,12 @@ const FindJobs = ({ isDarkMode }) => {
 
   const faqs = [
     {
-      question: 'How do I create a JobConnect account?',
+      question: 'How do I create a HireMe account?',
       answer: 'Creating an account is easy! Click on the "Sign Up" button on the homepage and fill in your details.',
     },
     {
-      question: 'Is JobConnect free to use?',
-      answer: 'Yes, JobConnect is completely free for job seekers.',
+      question: 'Is HireMe free to use?',
+      answer: 'Yes, HireMe is completely free for job seekers.',
     },
     {
       question: 'How can I apply for jobs?',
@@ -94,22 +94,22 @@ const FindJobs = ({ isDarkMode }) => {
 
   const testimonials = [
     {
-      feedback: "JobConnect has been an amazing platform to find the best job opportunities!",
+      feedback: "HireMe has been an amazing platform to find the best job opportunities!",
       name: "Arjun Sharma",
       job: "Software Engineer",
     },
     {
-      feedback: "I found my dream job through JobConnect. Highly recommend it!",
+      feedback: "I found my dream job through HireMe. Highly recommend it!",
       name: "Priya Patel",
       job: "Data Scientist",
     },
     {
-      feedback: "JobConnect made my job search so much easier! A great platform to connect with employers.",
+      feedback: "HireMe made my job search so much easier! A great platform to connect with employers.",
       name: "Ravi Kumar",
       job: "Mechanical Engineer",
     },
     {
-      feedback: "Thanks to JobConnect, I was able to land an amazing job in just a few weeks!",
+      feedback: "Thanks to HireMe, I was able to land an amazing job in just a few weeks!",
       name: "Anjali Reddy",
       job: "Digital Marketer",
     },

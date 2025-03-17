@@ -47,7 +47,7 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
             <div className="flex items-center">
                 <Link to="/" className="flex items-center space-x-2 text-2xl font-bold text-blue-600">
                     {/* <User size={32} /> */}
-                    <span>JobConnect</span>
+                    <span>HireMe</span>
                 </Link>
             </div>
 

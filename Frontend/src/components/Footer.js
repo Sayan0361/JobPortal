@@ -18,7 +18,7 @@ const Footer = ({ isDarkMode }) => {
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
         {/* Brand Section */}
         <div>
-          <h3 className="text-lg font-bold mb-2 text-blue-400">JobConnect</h3>
+          <h3 className="text-lg font-bold mb-2 text-blue-400">HireMe</h3>
           <p>Your gateway to exciting career opportunities across industries.</p>
         </div>
 
@@ -108,7 +108,7 @@ const Footer = ({ isDarkMode }) => {
           isDarkMode ? 'border-gray-700' : 'border-gray-300'
         }`}
       >
-        <p>&copy; {new Date().getFullYear()} JobConnect. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} HireMe. All rights reserved.</p>
       </div>
     </footer>
   );

@@ -4,7 +4,7 @@ PASS => 1234, Bose@2002
 
 EMPLOYER:
 email => sayan2002@gmail.com
-PASS => Bose2002
+PASS => Bose@2002
 
 karbyde@gmail.com
 Bose@2002

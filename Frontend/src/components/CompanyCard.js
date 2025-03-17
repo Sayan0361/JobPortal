@@ -47,7 +47,7 @@ const CompanyCard = ({ company, location, salary, isDarkMode }) => {
             <h2 className="text-3xl font-bold text-center text-blue-500 mb-2">{company}</h2>
 
             {/* Short Description */}
-            <p className="text-center text-gray-500 mb-4">Innovating the future of technology.</p>
+            {/* <p className="text-center text-gray-500 mb-4">Innovating the future of technology.</p> */}
 
             {/* Job Details */}
             <div className="mt-4 space-y-3">

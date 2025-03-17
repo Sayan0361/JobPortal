@@ -46,7 +46,7 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
             {/* Logo */}
             <div className="flex items-center">
                 <Link to="/" className="flex items-center space-x-2 text-2xl font-bold text-blue-600">
-                    {/* <User size={32} /> */}
+                    <User size={32} />
                     <span>HireMe</span>
                 </Link>
             </div>
@@ -67,13 +67,15 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                     <Building size={20} />
                     <span>Companies</span>
                 </Link>
-                <Link
-                    to="/community-page"
-                    className="flex items-center space-x-2 transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
-                >
-                    <Users size={20} />
-                    <span>Community</span>
-                </Link>
+                {user && (
+                    <Link
+                        to="/community-page"
+                        className="flex items-center space-x-2 transition-all duration-200 transform hover:text-blue-600 hover:scale-105"
+                    >
+                        <Users size={20} />
+                        <span>Community</span>
+                    </Link>
+                )}
 
                 {/* Conditionally show "Post Job" link for employers */}
                 {user && user.userType === "employer" && (
@@ -207,13 +209,15 @@ const Navbar = ({ isDarkMode, toggleTheme, user, logout }) => {
                         <span>Companies</span>
                     </Link>
 
-                    <Link
-                        to="/community-page"
-                        className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
-                    >
-                        <Users size={20} />
-                        <span>Community</span>
-                    </Link>
+                    {user && (
+                        <Link
+                            to="/community-page"
+                            className="flex items-center space-x-2 text-blue-600 hover:text-blue-800 hover:scale-105 transition-all duration-200"
+                        >
+                            <Users size={20} />
+                            <span>Community</span>
+                        </Link>
+                    )}
 
                     {/* Conditionally show "Post Job" link for employers in mobile */}
                     {user && user.userType === "employer" && (

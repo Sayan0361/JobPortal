@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Search, MapPin, Briefcase, Users, TrendingUp, Building } from 'lucide-react';
-import { searchJob } from '../ConfigAPI';
+import { searchJob, saveJobToUser } from '../ConfigAPI';
 import FeaturedCompanies from '../components/FeaturedCompanies';
 import Testimonials from '../components/Testimonials';
 import FAQ from '../components/FAQ';
@@ -19,6 +19,7 @@ const FindJobs = ({ isDarkMode }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [searchPerformed, setSearchPerformed] = useState(false); // Track if search has been performed
+  const navigate = useNavigate();
 
   
 
@@ -200,6 +201,15 @@ const FindJobs = ({ isDarkMode }) => {
 
   const handleToggle = (index) => {
     setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  const handleApplyJob = async (job) => {
+    try {
+      await saveJobToUser(job._id);
+      navigate('/apply-job', { state: { title: job.title, company: job.company } });
+    } catch (error) {
+      console.error("Error applying for job:", error);
+    }
   };
 
   return (
@@ -458,6 +468,7 @@ const FindJobs = ({ isDarkMode }) => {
                     View Details
                   </Link>
                   <button
+                    onClick={() => handleApplyJob(job)}
                     className={`px-4 py-1 text-white rounded-md ${
                       isDarkMode 
                         ? 'bg-blue-600 hover:bg-blue-700' 

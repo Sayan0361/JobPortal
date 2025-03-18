@@ -27,8 +27,13 @@ const SignIn = ({ isDarkMode, onLogin }) => {
             const response = await login({ email, password}, userType);
 
             if (response.status === 200) {
-                const { name, email } = response.data.data.user;
-                const userType = response.data.userType;
+                const userData = response.data?.data?.user;
+                if (!userData) {
+                    setErrorMessage('Invalid response format. Please try again.');
+                    return;
+                }
+                const { name, email } = userData;
+                const userType = response.data?.userType || userType; // Use the current userType if not in response
                 setUserType(userType);
                 setName(name);
                 onLogin({ name, email, userType }); 

@@ -52,14 +52,22 @@ function App() {
 
     const handleLogout = async (userType) => {
         try {
+            if (!userType) {
+                console.error("No user type provided for logout");
+                return;
+            }
             console.log("User type in logout: ", userType);
-            await logout(userType);
-            localStorage.removeItem('user');
-            setUser(null);
-            setUserType(null);
+            const response = await logout(userType);
+            if (response && response.status === 200) {
+                // Clear local storage and state
+                localStorage.removeItem('user');
+                setUser(null);
+                setUserType(null);
+            } else {
+                console.error("Logout failed:", response);
+            }
         } catch (error) {
             console.error("Error during logout:", error);
-            // Optionally show an error message to the user
         }
     };
 

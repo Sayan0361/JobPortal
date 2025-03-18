@@ -111,7 +111,8 @@ const logout = async (userType) => {
         }
     } catch (error) {
         console.error("Error in logout:", error.response?.data || error.message);
-        throw error;
+        // Even if the server request fails, we should still clear the local state
+        return { status: 200, data: { message: "Logged out locally" } };
     }
 };
 

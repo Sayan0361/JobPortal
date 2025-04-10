@@ -15,9 +15,9 @@ const ApplyJobSuccess = ({ isDarkMode }) => {
 
 
     return (
-        <div className={`min-h-screen flex items-center justify-center p-6 ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-100 text-gray-900'}`}>
+        <div className={`min-h-screen flex items-center justify-center p-6 ${isDarkMode ? 'bg-zinc-900 text-zinc-200' : 'bg-zinc-100 text-zinc-900'}`}>
             <div className={`shadow-lg rounded-2xl p-6 w-full max-w-md text-center transition-all duration-300 
-                ${isDarkMode ? 'bg-gray-800 text-gray-200' : 'bg-white text-gray-900'}`}>
+                ${isDarkMode ? 'bg-zinc-800 text-zinc-200' : 'bg-white text-zinc-900'}`}>
                 <h1 className="text-2xl font-bold mb-4">Application Submitted</h1>
                 <p>You have successfully applied for the position of</p>
                 <h2 className="text-xl font-semibold mt-2">{title}</h2>

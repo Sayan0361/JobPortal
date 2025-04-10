@@ -11,8 +11,8 @@ const Footer = ({ isDarkMode }) => {
 
   return (
     <footer
-      className={`py-6 px-4 transition-colors duration-300 ${
-        isDarkMode ? 'bg-gray-900 text-gray-400' : 'bg-gray-100 text-gray-600'
+      className={`py-6 px-10 transition-colors duration-300 ${
+        isDarkMode ? 'bg-zinc-900 text-zinc-400' : 'bg-zinc-100 text-zinc-600'
       }`}
     >
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
@@ -32,8 +32,8 @@ const Footer = ({ isDarkMode }) => {
                   to={`/${linkText.toLowerCase().replace(' ', '-')}`}
                   className={`transition-colors ${
                     isDarkMode
-                      ? 'text-gray-400 hover:text-blue-500'
-                      : 'text-gray-600 hover:text-blue-600'
+                      ? 'text-zinc-400 hover:text-blue-500'
+                      : 'text-zinc-600 hover:text-blue-600'
                   }`}
                 >
                   {linkText}
@@ -69,8 +69,8 @@ const Footer = ({ isDarkMode }) => {
                   onClick={() => toggleOptions(platform)}
                   className={`transition-colors ${
                     isDarkMode
-                      ? 'text-gray-400 hover:text-blue-500'
-                      : 'text-gray-600 hover:text-blue-600'
+                      ? 'text-zinc-400 hover:text-blue-500'
+                      : 'text-zinc-600 hover:text-blue-600'
                   }`}
                 >
                   <Icon size={24} />
@@ -79,8 +79,8 @@ const Footer = ({ isDarkMode }) => {
                   <div
                     className={`absolute mt-2 left-0 p-2 border rounded-lg shadow-lg z-10 ${
                       isDarkMode
-                        ? 'bg-gray-800 text-gray-300 border-gray-700 shadow-gray-900'
-                        : 'bg-white text-gray-700 border-gray-300 shadow-gray-200'
+                        ? 'bg-zinc-800 text-zinc-300 border-zinc-700 shadow-zinc-900'
+                        : 'bg-white text-zinc-700 border-zinc-300 shadow-zinc-200'
                     }`}
                   >
                     {links.map(({ name, url }) => (
@@ -105,7 +105,7 @@ const Footer = ({ isDarkMode }) => {
       {/* Footer Bottom Section */}
       <div
         className={`text-center mt-4 border-t pt-4 ${
-          isDarkMode ? 'border-gray-700' : 'border-gray-300'
+          isDarkMode ? 'border-zinc-700' : 'border-zinc-300'
         }`}
       >
         <p>&copy; {new Date().getFullYear()} HireMe. All rights reserved.</p>

@@ -90,7 +90,7 @@ const SignUp = ({ isDarkMode }) => {
     return (
         <div
             className={`min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300 ${
-                isDarkMode ? "bg-gray-900 text-gray-200" : "bg-gray-50 text-gray-900"
+                isDarkMode ? "bg-zinc-900 text-zinc-200" : "bg-zinc-50 text-zinc-900"
             }`}
         >
             <div className="max-w-lg w-full space-y-8">
@@ -117,8 +117,8 @@ const SignUp = ({ isDarkMode }) => {
                                             ? "bg-blue-600 text-white"
                                             : "bg-blue-500 text-white"
                                         : isDarkMode
-                                        ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                        ? "bg-zinc-700 text-zinc-300 hover:bg-zinc-600"
+                                        : "bg-zinc-200 text-zinc-700 hover:bg-zinc-300"
                                 }`}
                             >
                                 Jobseeker
@@ -132,8 +132,8 @@ const SignUp = ({ isDarkMode }) => {
                                             ? "bg-green-600 text-white"
                                             : "bg-green-500 text-white"
                                         : isDarkMode
-                                        ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                        ? "bg-zinc-700 text-zinc-300 hover:bg-zinc-600"
+                                        : "bg-zinc-200 text-zinc-700 hover:bg-zinc-300"
                                 }`}
                             >
                                 Employer
@@ -152,7 +152,7 @@ const SignUp = ({ isDarkMode }) => {
                                     "https://via.placeholder.com/100?text=Profile+Pic"
                                 }
                                 alt="Profile Preview"
-                                className="w-24 h-24 rounded-full object-cover border-2 border-gray-300"
+                                className="w-24 h-24 rounded-full object-cover border-2 border-zinc-300"
                             />
                             <input
                                 type="file"
@@ -172,8 +172,8 @@ const SignUp = ({ isDarkMode }) => {
                         required
                         className={`block w-full px-3 py-2 rounded-md border transition-colors ${
                             isDarkMode
-                                ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400"
-                                : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400"
+                                : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"
                         }`}
                     />
                     <input
@@ -185,8 +185,8 @@ const SignUp = ({ isDarkMode }) => {
                         required
                         className={`block w-full px-3 py-2 rounded-md border transition-colors ${
                             isDarkMode
-                                ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400"
-                                : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400"
+                                : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"
                         }`}
                     />
                     <div className="relative">
@@ -199,8 +199,8 @@ const SignUp = ({ isDarkMode }) => {
                             required
                             className={`block w-full px-3 py-2 rounded-md border transition-colors ${
                                 isDarkMode
-                                    ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400"
-                                    : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                    ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400"
+                                    : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"
                             }`}
                         />
                         <button
@@ -211,13 +211,13 @@ const SignUp = ({ isDarkMode }) => {
                             {showPassword ? (
                                 <EyeOff 
                                     className={`h-5 w-5 ${
-                                        isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                                        isDarkMode ? 'text-zinc-400' : 'text-zinc-500'
                                     }`} 
                                 />
                             ) : (
                                 <Eye 
                                     className={`h-5 w-5 ${
-                                        isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                                        isDarkMode ? 'text-zinc-400' : 'text-zinc-500'
                                     }`} 
                                 />
                             )}
@@ -236,8 +236,8 @@ const SignUp = ({ isDarkMode }) => {
                             required
                             className={`block w-full px-3 py-2 rounded-md border transition-colors ${
                                 isDarkMode
-                                    ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400"
-                                    : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                    ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400"
+                                    : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"
                             }`}
                         />
                         <button
@@ -248,13 +248,13 @@ const SignUp = ({ isDarkMode }) => {
                             {showConfirmPassword ? (
                                 <EyeOff 
                                     className={`h-5 w-5 ${
-                                        isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                                        isDarkMode ? 'text-zinc-400' : 'text-zinc-500'
                                     }`} 
                                 />
                             ) : (
                                 <Eye 
                                     className={`h-5 w-5 ${
-                                        isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                                        isDarkMode ? 'text-zinc-400' : 'text-zinc-500'
                                     }`} 
                                 />
                             )}
@@ -285,8 +285,8 @@ const SignUp = ({ isDarkMode }) => {
                             required
                             className={`block w-full px-3 py-2 rounded-md border transition-colors ${
                                 isDarkMode
-                                    ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400"
-                                    : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                    ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400"
+                                    : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"
                             }`}
                         />
                     )}
@@ -325,7 +325,7 @@ const SignUp = ({ isDarkMode }) => {
                     >
                         <div
                             className={`bg-white p-6 rounded-lg text-center ${
-                                isDarkMode ? "text-gray-200 bg-gray-800" : ""
+                                isDarkMode ? "text-zinc-200 bg-zinc-800" : ""
                             }`}
                         >
                             <h3 className="text-lg font-bold">Sign Up Successful!</h3>

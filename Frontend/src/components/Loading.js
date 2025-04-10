@@ -21,8 +21,8 @@ function Loading({ isDarkMode }) {
     <div
       className={`fixed inset-0 flex items-center justify-center z-50 transition-all duration-500 ${
         isDarkMode
-          ? 'bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900'
-          : 'bg-gradient-to-r from-gray-200 via-gray-400 to-gray-500'
+          ? 'bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-900'
+          : 'bg-gradient-to-r from-zinc-200 via-zinc-400 to-zinc-500'
       }`}
     >
       <div className="w-full max-w-sm px-4 space-y-6">

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, MapPin, Briefcase, Users, TrendingUp, Building } from 'lucide-react';
 import { searchJob, saveJobToUser } from '../ConfigAPI';
-import FeaturedCompanies from '../components/FeaturedCompanies';
-import Testimonials from '../components/Testimonials';
-import FAQ from '../components/FAQ';
-import WhyChooseUs from '../components/WhyChooseUs';
-import PopularCategories from '../components/PopularCategories';
-import CallToAction from '../components/CallToAction';
+import FeaturedCompanies from '../components/MainPageComponents/FeaturedCompanies';
+import Testimonials from '../components/MainPageComponents/Testimonials';
+import FAQ from '../components/MainPageComponents/FAQ';
+import WhyChooseUs from '../components/MainPageComponents/WhyChooseUs';
+import PopularCategories from '../components/MainPageComponents/PopularCategories';
+import CallToAction from '../components/MainPageComponents/CallToAction';
 
 const FindJobs = ({ isDarkMode }) => {
   const [jobTitle, setJobTitle] = useState('');
@@ -21,7 +22,10 @@ const FindJobs = ({ isDarkMode }) => {
   const [searchPerformed, setSearchPerformed] = useState(false); // Track if search has been performed
   const navigate = useNavigate();
 
-  
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0 }
+  };
 
   const faqs = [
     {
@@ -213,94 +217,107 @@ const FindJobs = ({ isDarkMode }) => {
   };
 
   return (
-    <div className={`container mx-auto px-4 py-12 ${isDarkMode ? 'bg-gray-900 text-gray-200' : 'bg-gray-50 text-gray-900'}`}>
+    <div className={`container mx-auto px-4 py-12 ${isDarkMode ? 'bg-zinc-900 text-zinc-200' : 'bg-zinc-50 text-zinc-900'}`}>
     {/* Header Section */}
-    <div className="text-center mb-16 px-4" data-aos="fade-up">
-      {/* Text Content */}
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-400 to-indigo-700 animate-pulse">
-          Find Your Dream Job
-        </h1>
-        
-        {/* Gradient Underline */}
-        <div className="w-28 h-2 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 via-indigo-400 to-indigo-700 shadow-md"></div>
-        
-        <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-lg md:text-xl mb-8`}>
-          Discover exciting job opportunities across various industries and locations.
-        </p>
-
-        {/* Call-to-Action Buttons */}
-        <div className="flex justify-center gap-4 mb-8">
-          <Link
-            to="/all-jobs"
-            className={`px-6 py-3 text-lg font-medium rounded-lg transition-all duration-300 ${
-              isDarkMode 
-                ? 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg' 
-                : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'
-            } transform hover:scale-105`}
+    <motion.div
+        className="text-center mb-16 px-4"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        transition={{ duration: 1 }}
+        variants={fadeUp}
+      >
+        <div className="max-w-3xl mx-auto">
+          <motion.h1
+            className="text-5xl md:text-6xl font-bold leading-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-400 to-indigo-700 animate-pulse"
+            whileHover={{ scale: 1.05 }}
           >
-            Browse Jobs
-          </Link>
+            Find Your Dream Job
+          </motion.h1>
+
+          <div className="w-28 h-2 mx-auto mb-6 rounded-full bg-gradient-to-r from-blue-500 via-indigo-400 to-indigo-700 shadow-md"></div>
+
+          <p className={`${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'} text-lg md:text-xl mb-8`}>
+            Discover exciting job opportunities across various industries and locations.
+          </p>
+
+          <div className="flex justify-center gap-4 mb-8">
+            <motion.div whileHover={{ scale: 1.1 }}>
+              <Link
+                to="/all-jobs"
+                className={`px-6 py-3 text-lg font-medium rounded-lg transition-all duration-300 ${
+                  isDarkMode 
+                    ? 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg' 
+                    : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-lg'
+                }`}
+              >
+                Browse Jobs
+              </Link>
+            </motion.div>
+          </div>
+
+          <div className={`flex flex-wrap justify-center gap-6 md:gap-12 ${isDarkMode ? 'text-zinc-300' : 'text-zinc-600'}`}>
+            {[{
+              label: 'Jobs Posted', value: '10,000+', color: 'text-blue-600 dark:text-indigo-400'
+            }, {
+              label: 'Companies Hiring', value: '500+', color: 'text-indigo-500 dark:text-blue-400'
+            }, {
+              label: 'Candidates Hired', value: '1M+', color: 'text-blue-600 dark:text-indigo-400'
+            }].map(({ label, value, color }, idx) => (
+              <motion.div
+                className="text-center"
+                key={idx}
+                whileHover={{ scale: 1.1 }}
+              >
+                <p className={`text-4xl font-bold ${color} animate-pulse`}>{value}</p>
+                <p className="text-lg font-medium">{label}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
-        {/* Statistics Section */}
-        <div className={`flex flex-wrap justify-center gap-6 md:gap-12 ${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-          <div className="text-center">
-            <p className="text-4xl font-bold text-blue-600 dark:text-indigo-400 animate-pulse">10,000+</p>
-            <p className="text-lg font-medium">Jobs Posted</p>
-          </div>
-          <div className="text-center">
-            <p className="text-4xl font-bold text-indigo-500 dark:text-blue-400 animate-pulse">500+</p>
-            <p className="text-lg font-medium">Companies Hiring</p>
-          </div>
-          <div className="text-center">
-            <p className="text-4xl font-bold text-blue-600 dark:text-indigo-400 animate-pulse">1M+</p>
-            <p className="text-lg font-medium">Candidates Hired</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Image */}
-      <div className="flex justify-center mt-12">
-        <img
-          src="/images/herosection.png"
-          alt="Job Search Illustration"
-          className="w-full max-w-lg mx-auto drop-shadow-lg rounded-lg transform transition-transform duration-500 hover:scale-105"
-          data-aos="fade-up"
-        />
-      </div>
-    </div>
+        <motion.div
+          className="flex justify-center mt-12"
+          whileHover={{ scale: 1.05 }}
+        >
+          <img
+            src="/images/herosection.png"
+            alt="Job Search Illustration"
+            className="w-full max-w-lg mx-auto drop-shadow-lg rounded-lg transition-transform duration-500"
+          />
+        </motion.div>
+      </motion.div>
 
     {/* Search Form Section */}
     <div className="text-center mb-8" data-aos="fade-up">
-      <h2 className={`text-3xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+      <h2 className={`text-3xl font-bold mb-4 ${isDarkMode ? 'text-white' : 'text-zinc-900'}`}>
         Find the Perfect Job for You
       </h2>
-      <p className={`${isDarkMode ? 'text-gray-400' : 'text-gray-600'} text-lg mb-6`}>
+      <p className={`${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'} text-lg mb-6`}>
         Search thousands of job opportunities across industries and locations. Start your journey today!
       </p>
     </div>
 
     {/* Search Form */}
-    <form onSubmit={handleSubmit} className={`max-w-3xl mx-auto ${isDarkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg rounded-lg overflow-hidden flex mb-12 flex-col md:flex-row`} data-aos="fade-up">
-      <div className="flex-1 flex items-center border border-gray-300 rounded-l-lg mb-4 md:mb-0 md:mr-2">
-        <Search className={`ml-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`} />
+    <form onSubmit={handleSubmit} className={`max-w-3xl mx-auto ${isDarkMode ? 'bg-zinc-800' : 'bg-white'} shadow-lg rounded-lg overflow-hidden flex mb-12 flex-col md:flex-row`} data-aos="fade-up">
+      <div className="flex-1 flex items-center border border-zinc-300 rounded-l-lg mb-4 md:mb-0 md:mr-2">
+        <Search className={`ml-4 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`} />
         <input
           type="text"
           placeholder="Job Title, Keywords"
           value={jobTitle}
           onChange={handleJobTitleChange}
-          className={`w-full p-4 focus:outline-none rounded-l-lg ${isDarkMode ? 'bg-gray-700 text-gray-200' : 'bg-white text-gray-900'}`}
+          className={`w-full p-4 focus:outline-none rounded-l-lg ${isDarkMode ? 'bg-zinc-700 text-zinc-200' : 'bg-white text-zinc-900'}`}
         />
       </div>
-      <div className="flex-1 flex items-center border border-gray-300 mb-4 md:mb-0 md:mr-2">
-        <MapPin className={`ml-4 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`} />
+      <div className="flex-1 flex items-center border border-zinc-300 mb-4 md:mb-0 md:mr-2">
+        <MapPin className={`ml-4 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`} />
         <input
           type="text"
           placeholder="City, State, Country"
           value={location}
           onChange={handleLocationChange}
-          className={`w-full p-4 focus:outline-none ${isDarkMode ? 'bg-gray-700 text-gray-200' : 'bg-white text-gray-900'}`}
+          className={`w-full p-4 focus:outline-none ${isDarkMode ? 'bg-zinc-700 text-zinc-200' : 'bg-white text-zinc-900'}`}
         />
       </div>
       <button
@@ -317,7 +334,7 @@ const FindJobs = ({ isDarkMode }) => {
           {filteredJobSuggestions.map((suggestion, index) => (
             <li
               key={index}
-              className={`p-2 ${isDarkMode ? 'bg-gray-800' : 'bg-white'} border ${isDarkMode ? 'border-gray-700' : 'border-gray-300'} rounded-md cursor-pointer`}
+              className={`p-2 ${isDarkMode ? 'bg-zinc-800' : 'bg-white'} border ${isDarkMode ? 'border-zinc-700' : 'border-zinc-300'} rounded-md cursor-pointer`}
               onClick={() => {
                 setJobTitle(suggestion);
                 setFilteredJobSuggestions([]);
@@ -336,7 +353,7 @@ const FindJobs = ({ isDarkMode }) => {
           {filteredCitySuggestions.map((suggestion, index) => (
             <li
               key={index}
-              className={`p-2 ${isDarkMode ? 'bg-gray-800' : 'bg-white'} border ${isDarkMode ? 'border-gray-700' : 'border-gray-300'} rounded-md cursor-pointer`}
+              className={`p-2 ${isDarkMode ? 'bg-zinc-800' : 'bg-white'} border ${isDarkMode ? 'border-zinc-700' : 'border-zinc-300'} rounded-md cursor-pointer`}
               onClick={() => {
                 setLocation(suggestion);
                 setFilteredCitySuggestions([]);
@@ -359,7 +376,7 @@ const FindJobs = ({ isDarkMode }) => {
             </h2>
             {searchResults.length > 0 && (
               <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-zinc-600">
                   Showing results for: 
                   <span className="font-semibold ml-2">
                     {jobTitle || 'Any Job Title'} 
@@ -375,8 +392,8 @@ const FindJobs = ({ isDarkMode }) => {
                   }}
                   className={`px-3 py-1 rounded-md text-sm transition-colors ${
                     isDarkMode 
-                      ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      ? 'bg-zinc-700 text-zinc-300 hover:bg-zinc-600' 
+                      : 'bg-zinc-200 text-zinc-700 hover:bg-zinc-300'
                   }`}
                 >
                   Clear Search
@@ -394,10 +411,10 @@ const FindJobs = ({ isDarkMode }) => {
                 alt="No results found" 
                 className="mx-auto mb-6 opacity-50"
               />
-              <p className="text-2xl font-semibold text-gray-500 mb-4">
+              <p className="text-2xl font-semibold text-zinc-500 mb-4">
                 No Jobs Found
               </p>
-              <p className="text-gray-400">
+              <p className="text-zinc-400">
                 Try adjusting your search terms or explore different job categories
               </p>
               <div className="mt-6 flex justify-center space-x-4">
@@ -419,8 +436,8 @@ const FindJobs = ({ isDarkMode }) => {
                   to="/all-jobs" 
                   className={`px-6 py-2 rounded-md border transition-colors ${
                     isDarkMode 
-                      ? 'border-gray-700 text-gray-300 hover:bg-gray-800' 
-                      : 'border-gray-300 text-gray-700 hover:bg-gray-100'
+                      ? 'border-zinc-700 text-zinc-300 hover:bg-zinc-800' 
+                      : 'border-zinc-300 text-zinc-700 hover:bg-zinc-100'
                   }`}
                 >
                   Browse All Jobs
@@ -431,12 +448,12 @@ const FindJobs = ({ isDarkMode }) => {
             searchResults.map((job, index) => (
               <div
                 key={index}
-                className={`border p-4 rounded-lg ${isDarkMode ? 'bg-gray-800 text-gray-200 border-gray-700' : 'bg-white text-gray-900 border-gray-300'} shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl`}
+                className={`border p-4 rounded-lg ${isDarkMode ? 'bg-zinc-800 text-zinc-200 border-zinc-700' : 'bg-white text-zinc-900 border-zinc-300'} shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl`}
               >
                 <div className="flex justify-between items-start mb-3">
                   <div>
                     <h3 className="text-lg font-semibold">{job.title}</h3>
-                    <p className="text-sm text-gray-500">{job.company}</p>
+                    <p className="text-sm text-zinc-500">{job.company}</p>
                   </div>
                   <span 
                     className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -449,12 +466,12 @@ const FindJobs = ({ isDarkMode }) => {
                   </span>
                 </div>
                 
-                <div className="flex items-center text-sm text-gray-600 mb-3">
+                <div className="flex items-center text-sm text-zinc-600 mb-3">
                   <MapPin className="h-4 w-4 mr-2 opacity-70" />
                   <span>{job.location}</span>
                 </div>
                 
-                <p className="mt-3 text-sm text-gray-700 mb-4">
+                <p className="mt-3 text-sm text-zinc-700 mb-4">
                   {job.description.length > 120 
                     ? `${job.description.substring(0, 120)}...` 
                     : job.description}

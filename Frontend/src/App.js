@@ -77,7 +77,7 @@ function App() {
 
     return (
         <Router>
-            <div className={`min-h-screen ${isDarkMode ? 'dark bg-gray-900 text-white' : 'bg-white text-black'}`}>
+            <div className={`min-h-screen ${isDarkMode ? 'dark bg-zinc-900 text-white' : 'bg-white text-black'}`}>
                 {loading && <Loading isDarkMode={isDarkMode} />} {/* Show the Loading component while loading */}
                 <Navbar
                     isDarkMode={isDarkMode}
@@ -86,18 +86,19 @@ function App() {
                     userType={userType}
                     logout={handleLogout}
                 />
-                <Routes>
-                    <Route path="/" element={<FindJobs isDarkMode={isDarkMode} user={user} />} />
-                    <Route path="/companies" element={<Companies isDarkMode={isDarkMode} />} />
-                    <Route path="/community-page" element={<CommunityPage isDarkMode={isDarkMode} />} />
-                    <Route path="/job-posting-page" element={<JobPostingPage isDarkMode={isDarkMode} />} />
-                    <Route path="/all-jobs" element={<AllJobs isDarkMode={isDarkMode}/>} />
-                    <Route path="/signin" element={<SignIn isDarkMode={isDarkMode} onLogin={handleLogin} />} />
-                    <Route path="/signup" element={<SignUp isDarkMode={isDarkMode} />} />
-                    <Route path="/apply-job" element={<ApplyJob isDarkMode={isDarkMode} />} />
-
-                </Routes>
-                <Footer isDarkMode={isDarkMode} />
+                <div className="md:ml-64 mr-4 pl-4 pt-20 sm:pt-24">
+                    <Routes>
+                        <Route path="/" element={<FindJobs isDarkMode={isDarkMode} user={user} />} />
+                        <Route path="/companies" element={<Companies isDarkMode={isDarkMode} />} />
+                        <Route path="/community-page" element={<CommunityPage isDarkMode={isDarkMode} />} />
+                        <Route path="/job-posting-page" element={<JobPostingPage isDarkMode={isDarkMode} />} />
+                        <Route path="/all-jobs" element={<AllJobs isDarkMode={isDarkMode}/>} />
+                        <Route path="/signin" element={<SignIn isDarkMode={isDarkMode} onLogin={handleLogin} />} />
+                        <Route path="/signup" element={<SignUp isDarkMode={isDarkMode} />} />
+                        <Route path="/apply-job" element={<ApplyJob isDarkMode={isDarkMode} />} />
+                    </Routes>
+                    <Footer isDarkMode={isDarkMode} />
+                </div>
             </div>
         </Router>
     );

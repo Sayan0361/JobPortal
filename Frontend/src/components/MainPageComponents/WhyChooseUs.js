@@ -11,9 +11,9 @@ const WhyChooseUs = ({ features = [], isDarkMode }) => {
               key={index}
               className={`relative p-8 text-center rounded-2xl shadow-lg transition-all transform hover:scale-105 hover:shadow-2xl 
                 ${isDarkMode ? 
-                  "bg-gray-800 text-gray-200 border border-gray-700 hover:border-blue-400 hover:bg-gray-900" 
+                  "bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-blue-400 hover:bg-zinc-900" 
                   : 
-                  "bg-white text-gray-900 border border-gray-300 hover:border-blue-500 hover:bg-blue-50"
+                  "bg-white text-zinc-900 border border-zinc-300 hover:border-blue-500 hover:bg-blue-50"
                 }`}
             >
               {/* Icon */}
@@ -27,7 +27,7 @@ const WhyChooseUs = ({ features = [], isDarkMode }) => {
               </h3>
   
               {/* Description */}
-              <p className={`text-lg ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>
+              <p className={`text-lg ${isDarkMode ? "text-zinc-400" : "text-zinc-600"}`}>
                 {feature.description}
               </p>
   

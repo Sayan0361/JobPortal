@@ -19,8 +19,8 @@ const FAQ = ({ faqs = [], isDarkMode }) => {
             key={index}
             className={`p-5 rounded-xl shadow-lg border transition-all ${
               isDarkMode
-                ? "bg-gray-800 text-gray-200 border-gray-700 hover:border-blue-400"
-                : "bg-white text-gray-900 border-gray-300 hover:border-blue-500"
+                ? "bg-zinc-800 text-zinc-200 border-zinc-700 hover:border-blue-400"
+                : "bg-white text-zinc-900 border-zinc-300 hover:border-blue-500"
             }`}
           >
             {/* Question Button */}
@@ -59,7 +59,7 @@ const FAQ = ({ faqs = [], isDarkMode }) => {
             >
               <p
                 className={`text-sm leading-relaxed px-2 ${
-                  isDarkMode ? "text-gray-400" : "text-gray-600"
+                  isDarkMode ? "text-zinc-400" : "text-zinc-600"
                 }`}
               >
                 {faq.answer}

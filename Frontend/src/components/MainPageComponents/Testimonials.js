@@ -24,14 +24,14 @@ const Testimonials = ({ testimonials, isDarkMode }) => {
               <div
                 className={`relative p-8 text-center rounded-2xl shadow-lg transition-all transform hover:scale-105 hover:shadow-2xl 
                   ${isDarkMode ? 
-                    "bg-gray-800 text-gray-200 border border-gray-700 hover:border-blue-400 hover:bg-gray-900" 
+                    "bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-blue-400 hover:bg-zinc-900" 
                     : 
-                    "bg-white text-gray-900 border border-gray-300 hover:border-blue-500 hover:bg-blue-50"
+                    "bg-white text-zinc-900 border border-zinc-300 hover:border-blue-500 hover:bg-blue-50"
                   }`}
               >
-                <p className="text-lg italic text-gray-300 mb-4">"{testimonial.feedback}"</p>
+                <p className="text-lg italic text-zinc-300 mb-4">"{testimonial.feedback}"</p>
                 <h3 className="text-xl font-semibold">{testimonial.name}</h3>
-                <p className="text-sm text-gray-400">{testimonial.job}</p>
+                <p className="text-sm text-zinc-400">{testimonial.job}</p>
 
                 {/* Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-transparent opacity-10 rounded-2xl blur-xl" />
@@ -48,14 +48,14 @@ const Testimonials = ({ testimonials, isDarkMode }) => {
             key={index}
             className={`relative p-8 text-center rounded-2xl shadow-lg transition-all transform hover:scale-105 hover:shadow-2xl 
               ${isDarkMode ? 
-                "bg-gray-800 text-gray-200 border border-gray-700 hover:border-blue-400 hover:bg-gray-900" 
+                "bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-blue-400 hover:bg-zinc-900" 
                 : 
-                "bg-white text-gray-900 border border-gray-300 hover:border-blue-500 hover:bg-blue-50"
+                "bg-white text-zinc-900 border border-zinc-300 hover:border-blue-500 hover:bg-blue-50"
               }`}
           >
-            <p className="text-lg italic text-gray-300 mb-4">"{testimonial.feedback}"</p>
+            <p className="text-lg italic text-zinc-300 mb-4">"{testimonial.feedback}"</p>
             <h3 className="text-xl font-semibold">{testimonial.name}</h3>
-            <p className="text-sm text-gray-400">{testimonial.job}</p>
+            <p className="text-sm text-zinc-400">{testimonial.job}</p>
 
             {/* Glow Effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-transparent opacity-10 rounded-2xl blur-xl" />

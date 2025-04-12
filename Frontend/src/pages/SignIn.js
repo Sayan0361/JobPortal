@@ -32,12 +32,12 @@ const SignIn = ({ isDarkMode, onLogin }) => {
                     setErrorMessage('Invalid response format. Please try again.');
                     return;
                 }
-                const { name, email } = userData;
+                const { name, email, profileImage } = userData;
                 const userType = response.data?.userType || userType; // Use the current userType if not in response
                 setUserType(userType);
                 setName(name);
-                onLogin({ name, email, userType }); 
-                localStorage.setItem('user', JSON.stringify({ name, email, userType }));
+                onLogin({ name, email, userType, profileImage }); 
+                localStorage.setItem('user', JSON.stringify({ name, email, userType, profileImage }));
                 setShowSuccessDialog(true);
             } else {
                 setErrorMessage('Unexpected response. Please try again.');

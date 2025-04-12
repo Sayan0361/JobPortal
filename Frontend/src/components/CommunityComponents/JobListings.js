@@ -1,9 +1,27 @@
 import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Building2, MapPin, Laptop, BadgeCheck } from "lucide-react";
+import { Building2, MapPin, Laptop, BadgeCheck, AlertCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const JobListings = ({ jobListings, isDarkMode }) => {
+const JobListings = ({ jobListings, isDarkMode, user }) => {
   const [expanded, setExpanded] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const navigate = useNavigate();
+
+  const handleApply = (jobId) => {
+    if (!user) {
+      navigate('/signin');
+      return;
+    }
+
+    if (user?.userType === 'employer') {
+      setShowError(true);
+      setTimeout(() => setShowError(false), 3000);
+      return;
+    }
+
+    navigate(`/apply-job/${jobId}`);
+  };
 
   return (
     <div className="space-y-4">
@@ -34,80 +52,84 @@ const JobListings = ({ jobListings, isDarkMode }) => {
       </div>
 
       {/* Animated Content */}
-      <AnimatePresence initial={false}>
+      <AnimatePresence>
         {expanded && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.4 }}
-            className="space-y-6 overflow-hidden"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
           >
-            {jobListings.map((job) => (
-              <div
-                key={job.id}
-                className={`p-6 rounded-2xl shadow-xl border backdrop-blur-lg transition-transform hover:scale-[1.02] hover:shadow-2xl duration-300 group ${
-                  isDarkMode
-                    ? "bg-gradient-to-br from-[#1e1e1e] to-[#2c2c2c] border-zinc-700 text-gray-100"
-                    : "bg-gradient-to-br from-white to-zinc-100 border-zinc-300 text-gray-800"
-                }`}
-              >
-                {/* Title and Company */}
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <Laptop className="w-5 h-5 text-green-400" />
-                    <h3 className="text-xl font-semibold">{job.title}</h3>
-                  </div>
-                  <span
-                    className={`text-xs px-3 py-1 rounded-full transition ${
-                      isDarkMode
-                        ? "bg-green-900 text-green-300 group-hover:bg-green-800"
-                        : "bg-green-100 text-green-600 group-hover:bg-green-200"
-                    }`}
-                  >
-                    {job.type || "Remote"}
-                  </span>
-                </div>
-
-                {/* Company Name */}
-                <div className="flex items-center gap-2 text-sm mb-2 text-zinc-400">
-                  <Building2 className="w-4 h-4" />
-                  <span>{job.company}</span>
-                </div>
-
-                {/* Location */}
-                <div className="flex items-center gap-2 text-sm mb-4 text-zinc-400">
-                  <MapPin className="w-4 h-4" />
-                  <span>{job.location}</span>
-                </div>
-
-                {/* CTA */}
-                <div className="flex justify-between items-center">
-                  <div className="flex flex-wrap gap-2 text-xs">
-                    {[
-                      "Full-time",
-                      `₹ ${job.salary || "Negotiable"}`,
-                      job.experience || "0–2 yrs exp",
-                    ].map((tag, index) => (
-                      <span
-                        key={index}
-                        className={`px-2 py-1 rounded-full ${
-                          isDarkMode
-                            ? "bg-zinc-700 text-gray-200"
-                            : "bg-zinc-200 text-gray-800"
-                        }`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <button className="text-sm px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition flex items-center gap-1">
-                    <BadgeCheck className="w-4 h-4" />
-                    Apply
-                  </button>
+            {/* Error Message */}
+            {showError && (
+              <div className={`mb-4 p-3 rounded-xl text-center text-white bg-red-500/90 backdrop-blur-xl transition-all duration-300`}>
+                <div className="flex items-center justify-center gap-2">
+                  <AlertCircle size={16} />
+                  <span>Employers cannot apply for jobs</span>
                 </div>
               </div>
-            ))}
+            )}
+
+            <div className="space-y-4">
+              {jobListings.map((job) => (
+                <div
+                  key={job._id || job.id}
+                  className={`p-4 rounded-xl ${
+                    isDarkMode
+                      ? "bg-zinc-800/50 hover:bg-zinc-800"
+                      : "bg-white hover:bg-zinc-50"
+                  } transition-all duration-300`}
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-lg font-semibold text-green-400">
+                      {job.title}
+                    </h3>
+                    <span
+                      className={`px-2 py-1 text-xs rounded-full ${
+                        isDarkMode
+                          ? "bg-green-400/10 text-green-400"
+                          : "bg-green-100 text-green-600"
+                      }`}
+                    >
+                      {job.type || "Full-time"}
+                    </span>
+                  </div>
+
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center text-sm gap-2">
+                      <Building2 size={16} className="text-zinc-400" />
+                      <span>{job.company}</span>
+                    </div>
+                    <div className="flex items-center text-sm gap-2">
+                      <MapPin size={16} className="text-zinc-400" />
+                      <span>{job.location}</span>
+                    </div>
+                    <div className="flex items-center text-sm gap-2">
+                      <Laptop size={16} className="text-zinc-400" />
+                      <span>{job.salary}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-1 text-sm text-green-400">
+                      <BadgeCheck size={16} />
+                      <span>Actively hiring</span>
+                    </div>
+                    <button
+                      onClick={() => handleApply(job._id || job.id)}
+                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 
+                        ${isDarkMode
+                          ? "bg-green-400/10 text-green-400 hover:bg-green-400/20"
+                          : "bg-green-100 text-green-600 hover:bg-green-200"
+                        } ${!user ? "" : user?.userType === 'employer' ? "opacity-50 cursor-not-allowed" : ""}`}
+                    >
+                      {!user ? "Sign in to Apply" : "Apply Now"}
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

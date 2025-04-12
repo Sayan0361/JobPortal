@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { MapPin, Building2, DollarSign, Clock, Briefcase, ChevronRight } from 'lucide-react';
+import { MapPin, Building2, DollarSign, Clock, Briefcase, ChevronRight, AlertCircle } from 'lucide-react';
 import { saveJobToUser } from '../ConfigAPI';
 
-const Card = ({ id, title, description, company, location, salary, jobType = "Full-time", postedDate = "2 days ago", isDarkMode }) => {
+const Card = ({ id, title, description, company, location, salary, jobType = "Full-time", postedDate = "2 days ago", isDarkMode, user }) => {
     const navigate = useNavigate();
+    const [showError, setShowError] = useState(false);
 
     useEffect(() => {
         AOS.init({ duration: 1200, easing: "ease-in-out", once: true });
@@ -17,10 +18,21 @@ const Card = ({ id, title, description, company, location, salary, jobType = "Fu
     }, [isDarkMode]);
 
     const handleApplications = () => {
+        if (!user) {
+            navigate('/signin');
+            return;
+        }
+
+        if (user?.userType === 'employer') {
+            setShowError(true);
+            setTimeout(() => setShowError(false), 3000); // Hide error after 3 seconds
+            return;
+        }
+
         console.log("Applying for job:", title);  
         console.log("ID:", id);   
         saveJobToUser(id);           
-        navigate('/apply-job', { state: { title, company } });
+        navigate(`/apply-job/${id}`);
     }
 
     return (
@@ -32,6 +44,16 @@ const Card = ({ id, title, description, company, location, salary, jobType = "Fu
                     : "bg-gradient-to-br from-white/60 to-white/80 border border-white/20 hover:border-blue-500/20"} 
                 backdrop-blur-xl shadow-lg hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1`}
         >
+            {/* Error Message */}
+            {showError && (
+                <div className={`absolute top-0 left-0 right-0 p-3 rounded-t-2xl text-center text-white bg-red-500/90 backdrop-blur-xl transition-all duration-300`}>
+                    <div className="flex items-center justify-center gap-2">
+                        <AlertCircle size={16} />
+                        <span>Employers cannot apply for jobs</span>
+                    </div>
+                </div>
+            )}
+
             {/* Job Type Badge */}
             <div className="flex justify-between items-start mb-4">
                 <span className={`px-3 py-1 text-xs font-medium rounded-full
@@ -93,10 +115,11 @@ const Card = ({ id, title, description, company, location, salary, jobType = "Fu
                 className={`w-full flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300
                     ${isDarkMode 
                         ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-500 hover:to-blue-400" 
-                        : "bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-500 hover:to-blue-400"}`}
+                        : "bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-500 hover:to-blue-400"}
+                    ${!user ? "opacity-90 hover:opacity-100" : user?.userType === 'employer' ? "opacity-50 cursor-not-allowed" : "opacity-90 hover:opacity-100"}`}
             >
                 <Briefcase size={16} />
-                <span>Apply Now</span>
+                <span>{!user ? "Sign in to Apply" : "Apply Now"}</span>
                 <ChevronRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
             </button>
         </div>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import FindJobs from './pages/FindJobs';
+import Home from './pages/Home';
 import Companies from './pages/Companies';
 import CommunityPage from './pages/CommunityPage';
 import AllJobs from './pages/AllJobs';
@@ -11,6 +11,8 @@ import SignUp from './pages/SignUp';
 import JobPostingPage from './pages/JobPostingPage';
 import Loading from './components/Loading';
 import ApplyJob from './pages/ApplyJob';
+import ChatbotTailwind from './components/Chatbot/ChatbotTailwind';
+import { JobChatbotProvider } from './components/Chatbot/JobChatbotContext';
 import { logout } from './ConfigAPI';
 
 function App() {
@@ -39,7 +41,15 @@ function App() {
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
         if (storedUser) {
-            setUser(JSON.parse(storedUser));
+            try {
+                const parsedUser = JSON.parse(storedUser);
+                console.log("Loaded user from localStorage:", parsedUser);
+                setUser(parsedUser);
+                setUserType(parsedUser.userType);
+            } catch (error) {
+                console.error("Error parsing user from localStorage:", error);
+                localStorage.removeItem('user');
+            }
         }
     },[])
 
@@ -77,29 +87,32 @@ function App() {
 
     return (
         <Router>
-            <div className={`min-h-screen ${isDarkMode ? 'dark bg-zinc-900 text-white' : 'bg-white text-black'}`}>
-                {loading && <Loading isDarkMode={isDarkMode} />} {/* Show the Loading component while loading */}
-                <Navbar
-                    isDarkMode={isDarkMode}
-                    toggleTheme={toggleTheme}
-                    user={user}
-                    userType={userType}
-                    logout={handleLogout}
-                />
-                <div className="md:ml-64 mr-4 pl-4 pt-20 sm:pt-24">
-                    <Routes>
-                        <Route path="/" element={<FindJobs isDarkMode={isDarkMode} user={user} />} />
-                        <Route path="/companies" element={<Companies isDarkMode={isDarkMode} />} />
-                        <Route path="/community-page" element={<CommunityPage isDarkMode={isDarkMode} />} />
-                        <Route path="/job-posting-page" element={<JobPostingPage isDarkMode={isDarkMode} />} />
-                        <Route path="/all-jobs" element={<AllJobs isDarkMode={isDarkMode}/>} />
-                        <Route path="/signin" element={<SignIn isDarkMode={isDarkMode} onLogin={handleLogin} />} />
-                        <Route path="/signup" element={<SignUp isDarkMode={isDarkMode} />} />
-                        <Route path="/apply-job" element={<ApplyJob isDarkMode={isDarkMode} />} />
-                    </Routes>
-                    <Footer isDarkMode={isDarkMode} />
+            <JobChatbotProvider>
+                <div className={`min-h-screen ${isDarkMode ? 'dark bg-zinc-900 text-white' : 'bg-white text-black'}`}>
+                    {loading && <Loading isDarkMode={isDarkMode} />} {/* Show the Loading component while loading */}
+                    <Navbar
+                        isDarkMode={isDarkMode}
+                        toggleTheme={toggleTheme}
+                        user={user}
+                        userType={userType}
+                        logout={handleLogout}
+                    />
+                    <div className="md:ml-64 mr-4 pl-4 pt-20 sm:pt-24">
+                        <Routes>
+                            <Route path="/" element={<Home isDarkMode={isDarkMode} user={user} />} />
+                            <Route path="/companies" element={<Companies isDarkMode={isDarkMode} />} />
+                            <Route path="/community-page" element={<CommunityPage isDarkMode={isDarkMode} user={user} />} />
+                            <Route path="/job-posting-page" element={<JobPostingPage isDarkMode={isDarkMode} />} />
+                            <Route path="/all-jobs" element={<AllJobs isDarkMode={isDarkMode} user={user} />} />
+                            <Route path="/signin" element={<SignIn isDarkMode={isDarkMode} onLogin={handleLogin} />} />
+                            <Route path="/signup" element={<SignUp isDarkMode={isDarkMode} />} />
+                            <Route path="/apply-job/:id" element={<ApplyJob isDarkMode={isDarkMode} user={user} />} />
+                        </Routes>
+                        <Footer isDarkMode={isDarkMode} />
+                    </div>
+                    <ChatbotTailwind isDarkMode={isDarkMode} user={user} />
                 </div>
-            </div>
+            </JobChatbotProvider>
         </Router>
     );
 }

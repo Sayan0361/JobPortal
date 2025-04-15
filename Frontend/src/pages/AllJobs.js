@@ -4,7 +4,7 @@ import { getJobs } from '../ConfigAPI.js';
 import { useSearchParams } from 'react-router-dom';
 import { Search, Briefcase, MapPin, DollarSign, Filter, SlidersHorizontal } from 'lucide-react';
 
-const AllJobs = ({ isDarkMode }) => {
+const AllJobs = ({ isDarkMode, user }) => {
     const [jobs, setJobs] = useState([]);
     const [filteredJobs, setFilteredJobs] = useState([]);
     const [searchParams] = useSearchParams();
@@ -249,6 +249,7 @@ const AllJobs = ({ isDarkMode }) => {
                                 location={job.location}
                                 salary={job.salary}
                                 isDarkMode={isDarkMode}
+                                user={user}
                             />
                         ))
                     ) : (

@@ -110,4 +110,27 @@ const searchJobs = asyncHandler(async (req,res,next) => {
 
 })
 
-export {postJobs, getAllJobs, searchJobs}
+const getJobById = asyncHandler(async (req, res, next) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return next(new ApiError(400, "Job ID is required"));
+    }
+
+    const job = await Job.findById(id);
+    if (!job) {
+        return next(new ApiError(404, "Job not found"));
+    }
+
+    return res
+        .status(200)
+        .json(
+            new ApiResponse(
+                200,
+                job,
+                "Job found successfully"
+            )
+        );
+});
+
+export {postJobs, getAllJobs, searchJobs, getJobById}

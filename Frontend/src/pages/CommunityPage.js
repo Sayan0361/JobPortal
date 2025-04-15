@@ -6,7 +6,7 @@ import PollsQA from "../components/CommunityComponents/PollsQA";
 import PinnedPosts from "../components/CommunityComponents/PinnedPosts";
 import CommunityFeed from "../components/CommunityComponents/CommunityFeed";
 
-const CommunityPage = ({ isDarkMode }) => {
+const CommunityPage = ({ isDarkMode, user }) => {
   const jobListings = [
     {
       id: 1,
@@ -114,6 +114,7 @@ const CommunityPage = ({ isDarkMode }) => {
             trendingTopics={trendingTopics}
             leaderboard={leaderboard}
             isDarkMode={isDarkMode} 
+            user={user}
           />
         </div>
 
@@ -123,6 +124,7 @@ const CommunityPage = ({ isDarkMode }) => {
           <JobListings
             jobListings={jobListings}
             isDarkMode={isDarkMode}
+            user={user}
           />
 
           {/* Resource Hub */}

@@ -6,8 +6,8 @@ import { FaBriefcase, FaMapMarkerAlt, FaMoneyBillWave, FaBuilding, FaStar, FaHea
 import { saveJobToUser } from "../ConfigAPI";
 
 
-const Card = ({ id, title, description, company, location, salary, isDarkMode }) => {
-    const navigate = useNavigate();
+const Card = ({ id, title, description, company, location, salary, isDarkMode, user }) => {
+    const navigate = useNavigate();    
 
     useEffect(() => {
         AOS.init({ duration: 1200, easing: "ease-in-out", once: true });
@@ -101,21 +101,27 @@ const Card = ({ id, title, description, company, location, salary, isDarkMode })
             </div>
 
             {/* Apply Button */}
-            <div className="flex justify-center mt-6">
-                <button
-                    onClick={handleApplications}
-                    className={`relative px-6 py-3 text-lg font-bold rounded-xl transition-all duration-300 overflow-hidden
-                        ${isDarkMode ? 
-                            "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-600/50" 
-                            : 
-                            "bg-blue-500 hover:bg-blue-600 text-white shadow-blue-300/50"
-                        }`}
-                >
-                    <span className="relative z-10">Apply Now</span>
-                    {/* Glow Effect */}
-                    <span className="absolute inset-0 bg-blue-500 opacity-20 blur-lg transition-all duration-500 hover:opacity-30"></span>
-                </button>
-            </div>
+            {user ? (
+                <div className="flex justify-center mt-6">
+                    <button
+                        onClick={handleApplications}
+                        className={`relative px-6 py-3 text-lg font-bold rounded-xl transition-all duration-300 overflow-hidden
+                            ${isDarkMode ? 
+                                "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-600/50" 
+                                : 
+                                "bg-blue-500 hover:bg-blue-600 text-white shadow-blue-300/50"
+                            }`}
+                    >
+                        <span className="relative z-10">Apply Now</span>
+                        {/* Glow Effect */}
+                        <span className="absolute inset-0 bg-blue-500 opacity-20 blur-lg transition-all duration-500 hover:opacity-30"></span>
+                    </button>
+                </div>
+            ) : (
+                <div className="flex justify-center mt-6">
+                    <p className="text-red-500">Please log in to apply for this job.</p>
+                </div>
+            )}
         </div>
     );
 };

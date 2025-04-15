@@ -91,7 +91,7 @@ function App() {
                     <Route path="/companies" element={<Companies isDarkMode={isDarkMode} />} />
                     <Route path="/community-page" element={<CommunityPage isDarkMode={isDarkMode} />} />
                     <Route path="/job-posting-page" element={<JobPostingPage isDarkMode={isDarkMode} />} />
-                    <Route path="/all-jobs" element={<AllJobs isDarkMode={isDarkMode}/>} />
+                    <Route path="/all-jobs" element={<AllJobs isDarkMode={isDarkMode} user={user} />} />
                     <Route path="/signin" element={<SignIn isDarkMode={isDarkMode} onLogin={handleLogin} />} />
                     <Route path="/signup" element={<SignUp isDarkMode={isDarkMode} />} />
                     <Route path="/apply-job" element={<ApplyJob isDarkMode={isDarkMode} />} />

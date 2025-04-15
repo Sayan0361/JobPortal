@@ -13,8 +13,8 @@ const PopularCategories = ({ categories, isDarkMode }) => {
             key={index}
             className={`relative px-6 py-3 rounded-full text-lg font-semibold cursor-pointer transition-all transform hover:scale-110 hover:shadow-2xl
               ${isDarkMode
-                ? "bg-gray-800 text-gray-200 border border-gray-700 hover:border-blue-400 hover:bg-gray-900 shadow-blue-900/40"
-                : "bg-white text-gray-900 border border-gray-300 hover:border-blue-500 hover:bg-blue-50 shadow-blue-200/70"
+                ? "bg-zinc-800 text-zinc-200 border border-zinc-700 hover:border-blue-400 hover:bg-zinc-900 shadow-blue-900/40"
+                : "bg-white text-zinc-900 border border-zinc-300 hover:border-blue-500 hover:bg-blue-50 shadow-blue-200/70"
               }`}
           >
             {category}

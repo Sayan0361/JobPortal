@@ -37,7 +37,7 @@ const JobPosting = ({ isDarkMode }) => {
 
   return (
     <div
-      className={`min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300 ${isDarkMode ? "bg-gray-900 text-gray-200" : "bg-gray-50 text-gray-900"}`}
+      className={`min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 transition-colors duration-300 ${isDarkMode ? "bg-zinc-900 text-zinc-200" : "bg-zinc-50 text-zinc-900"}`}
     >
       <div className="max-w-lg w-full space-y-8">
         <h2 className={`text-center text-3xl font-extrabold ${isDarkMode ? "text-blue-500" : "text-blue-600"}`}>
@@ -53,7 +53,7 @@ const JobPosting = ({ isDarkMode }) => {
             value={formData.title}
             onChange={handleChange}
             required
-            className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
+            className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"}`}
           />
           
           {/* Company Name */}
@@ -64,7 +64,7 @@ const JobPosting = ({ isDarkMode }) => {
             value={formData.company}
             onChange={handleChange}
             required
-            className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
+            className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"}`}
           />
 
           {/* Email */}
@@ -77,8 +77,8 @@ const JobPosting = ({ isDarkMode }) => {
             required
             className={`block w-full px-3 py-2 rounded-md border transition-colors ${
               isDarkMode
-                ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400"
-                : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400"
+                : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"
             }`}
           />
 
@@ -91,7 +91,7 @@ const JobPosting = ({ isDarkMode }) => {
             value={formData.location}
             onChange={handleChange}
             required
-            className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
+            className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"}`}
           />
 
           {/* Job Description */}
@@ -102,7 +102,7 @@ const JobPosting = ({ isDarkMode }) => {
             onChange={handleChange}
             required
             rows="4"
-            className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
+            className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"}`}
           />
           
           {/* Required Skills */}
@@ -113,7 +113,7 @@ const JobPosting = ({ isDarkMode }) => {
             value={formData.requiredSkills}
             onChange={handleChange}
             required
-            className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
+            className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"}`}
           /> */}
           
           {/* Salary */}
@@ -124,7 +124,7 @@ const JobPosting = ({ isDarkMode }) => {
             value={formData.salary}
             onChange={handleChange}
             required
-            className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
+            className={`block w-full px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"}`}
           />
           
           {/* Job Type */}
@@ -134,7 +134,7 @@ const JobPosting = ({ isDarkMode }) => {
               name="jobType"
               value={formData.jobType}
               onChange={handleChange}
-              className={`block w-2/5 px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-gray-800 text-gray-200 border-gray-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-gray-900 border-gray-300 focus:ring-blue-500 focus:border-blue-500"}`}
+              className={`block w-2/5 px-3 py-2 rounded-md border transition-colors ${isDarkMode ? "bg-zinc-800 text-zinc-200 border-zinc-700 focus:ring-blue-400 focus:border-blue-400" : "bg-white text-zinc-900 border-zinc-300 focus:ring-blue-500 focus:border-blue-500"}`}
             >
               <option value="full-time">Full-time</option>
               <option value="part-time">Part-time</option>

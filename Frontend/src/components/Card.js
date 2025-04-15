@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import { useNavigate } from "react-router-dom";
-import { FaBriefcase, FaMapMarkerAlt, FaMoneyBillWave, FaBuilding, FaStar, FaHeart, FaShareAlt } from "react-icons/fa";
-import { saveJobToUser } from "../ConfigAPI";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { MapPin, Building2, DollarSign, Clock, Briefcase, ChevronRight } from 'lucide-react';
+import { saveJobToUser } from '../ConfigAPI';
 
-
-const Card = ({ id, title, description, company, location, salary, isDarkMode, user }) => {
-    const navigate = useNavigate();    
+const Card = ({ id, title, description, company, location, salary, jobType = "Full-time", postedDate = "2 days ago", isDarkMode }) => {
+    const navigate = useNavigate();
 
     useEffect(() => {
         AOS.init({ duration: 1200, easing: "ease-in-out", once: true });
@@ -22,106 +21,85 @@ const Card = ({ id, title, description, company, location, salary, isDarkMode, u
         console.log("ID:", id);   
         saveJobToUser(id);           
         navigate('/apply-job', { state: { title, company } });
-        // navigate('/apply-job');
     }
-
 
     return (
         <div
-            className={`group relative p-6 rounded-3xl shadow-lg transition-all transform hover:scale-105 hover:shadow-2xl 
-                ${isDarkMode ? 
-                    "bg-gray-800 text-gray-200 border border-gray-700 hover:border-blue-400 hover:bg-gray-900 shadow-blue-900/40" 
-                    : 
-                    "bg-white text-gray-900 border border-gray-300 hover:border-blue-500 hover:bg-blue-50 shadow-blue-200/50"
-                }`}
             data-aos="fade-up"
+            className={`group relative p-6 rounded-2xl transition-all duration-300
+                ${isDarkMode 
+                    ? "bg-gradient-to-br from-zinc-900/40 to-zinc-900/60 border border-white/5 hover:border-blue-500/20" 
+                    : "bg-gradient-to-br from-white/60 to-white/80 border border-white/20 hover:border-blue-500/20"} 
+                backdrop-blur-xl shadow-lg hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1`}
         >
-            {/* Decorative Glow Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-transparent opacity-0 rounded-3xl blur-xl transition-all group-hover:opacity-10" />
-
-            {/* Share Button */}
-            <button
-                className={`absolute top-4 left-4 p-2 rounded-full transition-all ${
-                    isDarkMode
-                        ? "text-gray-400 hover:text-blue-500"
-                        : "text-gray-500 hover:text-blue-500"
-                }`}
-            >
-                <FaShareAlt className="text-xl" />
-            </button>
-
-            {/* Save Button */}
-            <button
-                className={`absolute top-4 right-4 p-2 rounded-full transition-all ${
-                    isDarkMode
-                        ? "text-gray-400 hover:text-red-500"
-                        : "text-gray-500 hover:text-red-500"
-                }`}
-            >
-                <FaHeart className="text-xl" />
-            </button>
-
-            {/* Company Logo */}
-            <div className="flex justify-center mb-4">
-                <div className="p-4 bg-blue-100 rounded-full">
-                    <FaBuilding className="text-blue-500 text-4xl" />
-                </div>
+            {/* Job Type Badge */}
+            <div className="flex justify-between items-start mb-4">
+                <span className={`px-3 py-1 text-xs font-medium rounded-full
+                    ${isDarkMode 
+                        ? "bg-blue-500/10 text-blue-400"
+                        : "bg-blue-500/10 text-blue-600"}`}
+                >
+                    {jobType}
+                </span>
+                <span className={`flex items-center text-sm
+                    ${isDarkMode ? "text-zinc-400" : "text-zinc-600"}`}
+                >
+                    <Clock size={14} className="mr-1" />
+                    {postedDate}
+                </span>
             </div>
 
-            {/* Title */}
-            <h2 className="text-3xl font-bold text-center text-blue-500 mb-2">{title}</h2>
+            {/* Title and Company */}
+            <h3 className={`text-xl font-semibold mb-2 transition-colors duration-300
+                ${isDarkMode 
+                    ? "text-zinc-200 group-hover:text-blue-400" 
+                    : "text-zinc-800 group-hover:text-blue-600"}`}
+            >
+                {title}
+            </h3>
+
+            {/* Company Info */}
+            <div className="flex items-center mb-3">
+                <Building2 size={16} className={`mr-1.5 ${isDarkMode ? "text-zinc-400" : "text-zinc-600"}`} />
+                <span className={`text-sm ${isDarkMode ? "text-zinc-400" : "text-zinc-600"}`}>
+                    {company}
+                </span>
+            </div>
+
+            {/* Location and Salary */}
+            <div className="flex items-center space-x-4 mb-4">
+                <div className="flex items-center">
+                    <MapPin size={16} className={`mr-1.5 ${isDarkMode ? "text-zinc-400" : "text-zinc-600"}`} />
+                    <span className={`text-sm ${isDarkMode ? "text-zinc-400" : "text-zinc-600"}`}>
+                        {location}
+                    </span>
+                </div>
+                <div className="flex items-center">
+                    <DollarSign size={16} className={`mr-1.5 ${isDarkMode ? "text-zinc-400" : "text-zinc-600"}`} />
+                    <span className={`text-sm ${isDarkMode ? "text-zinc-400" : "text-zinc-600"}`}>
+                        {salary}
+                    </span>
+                </div>
+            </div>
 
             {/* Description */}
-            <p className={`text-lg ${isDarkMode ? "text-gray-400" : "text-gray-600"}`}>{description}</p>
-
-            {/* Job Details */}
-            <div className="mt-4 space-y-3">
-                <div className="flex items-center gap-2">
-                    <FaBriefcase className="text-blue-400 text-xl" />
-                    <p className="text-lg font-medium">{company}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                    <FaMapMarkerAlt className="text-red-400 text-xl" />
-                    <p className="text-lg font-medium">{location}</p>
-                </div>
-                <div className="flex items-center gap-2">
-                    <FaMoneyBillWave className="text-green-400 text-xl" />
-                    <p className="text-lg font-medium">${salary}</p>
-                </div>
-            </div>
-
-            {/* Rating */}
-            <div className="flex items-center gap-2 mt-4">
-                <div className="flex">
-                    {[...Array(5)].map((_, index) => (
-                        <FaStar key={index} className="text-yellow-400 text-lg" />
-                    ))}
-                </div>
-                <p className="text-gray-500">4.5/5</p>
-            </div>
+            <p className={`text-sm mb-6 line-clamp-2 ${isDarkMode ? "text-zinc-400" : "text-zinc-600"}`}>
+                {description}
+            </p>
 
             {/* Apply Button */}
-            {user ? (
-                <div className="flex justify-center mt-6">
-                    <button
-                        onClick={handleApplications}
-                        className={`relative px-6 py-3 text-lg font-bold rounded-xl transition-all duration-300 overflow-hidden
-                            ${isDarkMode ? 
-                                "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-600/50" 
-                                : 
-                                "bg-blue-500 hover:bg-blue-600 text-white shadow-blue-300/50"
-                            }`}
-                    >
-                        <span className="relative z-10">Apply Now</span>
-                        {/* Glow Effect */}
-                        <span className="absolute inset-0 bg-blue-500 opacity-20 blur-lg transition-all duration-500 hover:opacity-30"></span>
-                    </button>
-                </div>
-            ) : (
-                <div className="flex justify-center mt-6">
-                    <p className="text-red-500">Please log in to apply for this job.</p>
-                </div>
-            )}
+
+            <button
+                onClick={handleApplications}
+                className={`w-full flex items-center justify-center space-x-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300
+                    ${isDarkMode 
+                        ? "bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-500 hover:to-blue-400" 
+                        : "bg-gradient-to-r from-blue-600 to-blue-500 text-white hover:from-blue-500 hover:to-blue-400"}`}
+            >
+                <Briefcase size={16} />
+                <span>Apply Now</span>
+                <ChevronRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+            </button>
         </div>
     );
 };

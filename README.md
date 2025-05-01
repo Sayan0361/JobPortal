@@ -1,4 +1,4 @@
-# 💼 JobConnect - Job Portal Web Application
+# 💼 HireMe - Job Portal Web Application
 
 A modern job portal where **users** can apply for jobs and track applications, and **employers** can post job openings and manage applicants — featuring a chat assistant, community forum, dark/light theme toggle, and full authentication/authorization.
 

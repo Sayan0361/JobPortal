@@ -176,4 +176,34 @@ const saveJobToUser = async(jobId) => {
     }
 }
 
-export {signup, login, logout, getJobs, postJob, searchJob, saveJobToUser};
+const getUser = async () => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/users/getUser`,
+            { withCredentials: true } // Ensure cookies are sent with the request
+        )
+        console.log("Response", response);
+        return response.data.data; // Return the user data
+    } catch (error) {
+        console.log("Error in getUser", error);
+        return null; // Return null if there's an error
+    }
+}
+
+const getEmployer = async () => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/employers/getEmployer`, {
+            withCredentials: true
+        })
+
+        if(!response || !response.data || !response.data.data) {
+            console.error("Invalid response structure:", response);
+            return null; // Return null if the response structure is unexpected
+        }
+        return response.data.data; // Return the employer data
+    } catch (error) {
+        console.log("Error in getEmployer", error);
+        return null; // Return null if there's an error
+    }
+}
+
+export {signup, login, logout, getJobs, postJob, searchJob, saveJobToUser, getUser, getEmployer};

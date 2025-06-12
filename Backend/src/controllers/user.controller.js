@@ -79,7 +79,7 @@ const loginUser = asyncHandler(async (req,res,next)=> {
     if(!email || !password){
         return next(new ApiError(400,"Please provide all the required fields"))
     }
-
+    
     const user = await JobSeeker.findOne({email})
     if(!user){
         throw new ApiError(404,"User not found")
@@ -92,13 +92,17 @@ const loginUser = asyncHandler(async (req,res,next)=> {
     
     const {accessToken,refreshToken} = await generateAccessandRefreshToken(user._id)
 
-    const loggedInUser = await JobSeeker.findById(user._id).select("-password -refreshToken")
+    const loggedInUser = await JobSeeker.findById(user._id)
+    .select("-password -refreshToken")
+    .populate("appliedJobs")
 
     const options = {
         httpOnly: true,
         // secure: true,
         sameSite: "lax",
     }
+
+    
 
     return res
     .status(200)
@@ -192,5 +196,22 @@ const appliedToJob = asyncHandler(async (req,res,next) => {
     )
 })
 
+const getUser = asyncHandler(async (req,res,next)=>{
+    const userId = req.user._id
+    if(!userId){
+        return next(new ApiError(400,"Please provide user id"))
+    }
+    const user = await JobSeeker.findById(userId)
+                    .select("-password -refreshToken")
+                    .populate("appliedJobs")
+    // console.log("User in getUser: ", user);
+    
+    if(!user){
+        throw new ApiError(404,"User not found")
+    }
 
-export {registerUser, loginUser, logoutUser, appliedToJob} 
+    return res.status(200).json(new ApiResponse(200,user,"User fetched successfully"))
+})
+
+
+export {registerUser, loginUser, logoutUser, appliedToJob, getUser} 

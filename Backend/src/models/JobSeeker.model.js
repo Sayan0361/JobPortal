@@ -27,10 +27,10 @@ const jobseekerSchema = new mongoose.Schema({
     resume: {
         type: String, //cloudinary url
     },
-    appliedJobs: {
+    appliedJobs: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Job",
-    }
+    }]
 },{timestamps:true})
 
 jobseekerSchema.pre("save",async function(next){

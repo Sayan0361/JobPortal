@@ -6,11 +6,7 @@ import { Job } from "../models/job.model.js";
 const postJobs = asyncHandler(async (req,res,next) => {
 
     const {title,description,location,company,salary} = req.body
-    
-    // console.log(req.body);  
-    // console.log("User object in job controller:",req.user);
     const employerID = req.user._id
-    // const employerID = req.user._id
 
     if(!title || !description || !location || !company || !salary){
         return next(new ApiError(400,"Please provide all the required fields"))
@@ -29,6 +25,15 @@ const postJobs = asyncHandler(async (req,res,next) => {
     if(!postedJob){
         return next(new ApiError(500,"Job posting failed"))
     }
+
+    req.user.postedJobs.push(postedJob._id)
+    const employer = await req.user.save({validateBeforeSave:false})
+
+        if(!employer){
+        return next(new ApiError(500,"Employer not found"))
+    }
+
+
     return res
     .status(201)
     .json(

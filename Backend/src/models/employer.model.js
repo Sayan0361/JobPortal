@@ -24,10 +24,10 @@ const employerSchema = new mongoose.Schema({
     refreshToken:{
         type: String
     },
-    // postedJobs: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Job",
-    // }
+    postedJobs: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Job",
+    }]
 },{timestamps: true})
 
 employerSchema.pre("save", async function(next) {

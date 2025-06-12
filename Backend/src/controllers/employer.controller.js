@@ -129,14 +129,18 @@ const logoutEmployer = asyncHandler(async(req,res,next) => {
     )
 })
 
-const postedJobs = asyncHandler(async(req,res,next) => {
-    const {jobsId} = req.body;
-
-    if(!jobsId){
-        return next(new ApiError(400,"Please provide all the required fields"))
-    }
-
+const getEmployer = asyncHandler(async (req, res, next) => {
+    const eId = req.user._id;
     
+    if(!eId) return next(new ApiError(400, "Employer ID is required"));
+    const employer = await Employer.findById(eId)
+                    .select("-password -refreshToken")
+                    .populate("postedJobs");
+    
+    if(!employer) return next(new ApiError(404, "Employer not found"));
+    return res.status(200).json(
+        new ApiResponse(200, employer, "Employer fetched successfully")
+    );
 })
 
-export {registerEmployer,loginEmployer,logoutEmployer}
+export {registerEmployer,loginEmployer,logoutEmployer, getEmployer}

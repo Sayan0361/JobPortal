@@ -14,6 +14,7 @@ import ApplyJob from './pages/ApplyJob';
 import ChatbotTailwind from './components/Chatbot/ChatbotTailwind';
 import { JobChatbotProvider } from './components/Chatbot/JobChatbotContext';
 import { logout } from './ConfigAPI';
+import Profile from './pages/Profile'; // Import Profile page
 
 function App() {
 
@@ -107,6 +108,7 @@ function App() {
                             <Route path="/signin" element={<SignIn isDarkMode={isDarkMode} onLogin={handleLogin} />} />
                             <Route path="/signup" element={<SignUp isDarkMode={isDarkMode} />} />
                             <Route path="/apply-job/:id" element={<ApplyJob isDarkMode={isDarkMode} user={user} />} />
+                            <Route path="/profile" element={<Profile isDarkMode={isDarkMode} userType={userType}/>} />
                         </Routes>
                         <Footer isDarkMode={isDarkMode} />
                     </div>

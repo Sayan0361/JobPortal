@@ -5,7 +5,7 @@ A modern job portal where **users** can apply for jobs and track applications, a
 ---
 
 ## 🎥 Video Demo
-[Watch Demo on Google Drive](https://drive.google.com/file/d/1iZ0nY4SScsncdUMwYHanX6EbWfQogUye/view?usp=drive_link)
+[Watch Demo on Google Drive](https://drive.google.com/file/d/1UzjBY5BTR-4d9jm01Md21YnDOvpwBNua/view?usp=sharing)
 
 
 ---
